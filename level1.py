@@ -5,24 +5,31 @@ from levelParser import LevelParser
 class Level1(Level):
     def __init__(self, display, gameStateManager, background):
         super().__init__(display, gameStateManager, background)
-        self.player.x = 101
-        self.player.y = 101
+        self.player.x = 121
+        self.player.y = 121
         self.walls = LevelParser(display, 'assets/levels/level1.txt').parse()
         print(self.walls)
 
     def checkCollisions(self):
+        hasCollisions = False
         for wall in self.walls:
             if self.player.rect.colliderect(wall.rect) and \
-                    (self.player.ignoreX != wall.x // 40 and
-                     self.player.ignoreY != wall.y // 40):
+                wall not in self.player.ignoredWalls and \
+                (wall.x // 40 != self.player.ignoreX and
+                 wall.y // 40 != self.player.ignoreY):
+                hasCollisions = True
+                self.player.ignoredWalls.append(wall)
+                if self.player.speedX != 0:
+                    self.player.ignoreY = wall.y // 40
+                elif self.player.speedY != 0:
+                    self.player.ignoreX = wall.x // 40
                 self.player.speedX = 0
                 self.player.speedY = 0
                 self.player.moving = False
-                self.player.ignoreX = wall.x // 40
-                self.player.ignoreY = wall.y // 40
                 print(self.player.ignoreX, wall.x // 40)
                 print(self.player.ignoreY, wall.y // 40)
                 print('Collision')
+        return hasCollisions
 
     def drawWalls(self):
         for wall in self.walls:
@@ -33,4 +40,5 @@ class Level1(Level):
         self.display.blit(self.background, (0, 0))
         self.drawWalls()
         self.player.run()
-        self.checkCollisions()
+        if not self.checkCollisions():
+            self.player.ignoredWalls = []

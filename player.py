@@ -10,6 +10,7 @@ class Player:
         self.rect = self.sprite.get_rect(topleft=(self.x, self.y))
         self.ignoreX = 239
         self.ignoreY = 239
+        self.ignoredWalls = []
         self.speedX = 0
         self.speedY = 0
         self.moving = False
