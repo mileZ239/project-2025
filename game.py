@@ -2,12 +2,12 @@ import pygame
 import sys
 from menu import Menu
 from gameStateManager import GameStateManager
-from level import Level
+from level1 import Level1
 
 # constants
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
-FPS = 30
+FPS = 120
 
 
 # main class
@@ -27,10 +27,10 @@ class Game:
 
         # creating instances of Menu and Level classes
         self.menu = Menu(self.screen, self.gameStateManager)
-        self.level = Level(self.screen, self.gameStateManager, pygame.image.load('assets/bat.png'))
+        self.level1 = Level1(self.screen, self.gameStateManager, pygame.image.load('assets/background.png'))
 
         # creating a dictionary for our game states
-        self.states = {'menu': self.menu, 'level': self.level}
+        self.states = {'menu': self.menu, 'level': self.level1}
 
     # main function
     def run(self):
