@@ -7,7 +7,7 @@ from level1 import Level1
 # constants
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
-FPS = 120
+FPS = 60
 
 
 # main class

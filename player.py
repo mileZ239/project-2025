@@ -14,6 +14,7 @@ class Player:
         self.speedX = 0
         self.speedY = 0
         self.moving = False
+        self.name = 'player'
 
     def move(self):
         self.x += self.speedX

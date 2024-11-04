@@ -6,8 +6,9 @@ class Wall:
         self.display = display
         self.x = x
         self.y = y
-        self.sprite = pygame.image.load(sprite).convert()
+        self.sprite = pygame.image.load(sprite)
         self.rect = self.sprite.get_rect(topleft=(self.x, self.y))
+        self.name = 'wall'
 
-    def draw(self):
+    def run(self):
         self.display.blit(self.sprite, self.rect)

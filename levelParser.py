@@ -1,4 +1,5 @@
 from wall import Wall
+from bat import Bat
 
 
 class LevelParser:
@@ -17,6 +18,10 @@ class LevelParser:
                         result.append(Wall(self.display, 'assets/wallVertical.png', j * 40, i * 40))
                     case '2':
                         result.append(Wall(self.display, 'assets/wallHorizontal.png', j * 40, i * 40))
+                    case 'V':
+                        result.append(Bat(self.display, 'assets/bat.png', j * 40, i * 40, 'vert', 200))
+                    case 'H':
+                        result.append(Bat(self.display, 'assets/bat.png', j * 40, i * 40, 'hor', 200))
                     case _:
                         pass
         return result
