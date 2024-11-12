@@ -4,28 +4,32 @@ import pygame
 
 # button class
 class Button:
-    def __init__(self, display, x, y, width, height, color, text=''):
+    def __init__(self, display, x, y, color, text='', fontSize=48, textColor='Purple'):
         self.display = display
 
         # position of the button
         self.x = x
         self.y = y
 
-        # width and height of the button
-        self.width = width
-        self.height = height
-
         # color of the button
         self.color = color
 
         # rectangle of the button
-        self.rect = pygame.Rect((x, y), (width, height))
+        self.sprite = pygame.image.load('assets/buttonBackgroundWhite.png')
+        if color == 'black':
+            self.sprite = pygame.image.load('assets/buttonBackgroundBlack.png')
+
+        self.rect = self.sprite.get_rect()
+        self.rect.center = (self.x, self.y)
 
         # button is pressed state
         self.pressed = False
 
         # button text
         self.text = text
+
+        self.fontSize = fontSize
+        self.textColor = textColor
 
     # doing stuff
     def draw(self):
@@ -41,15 +45,15 @@ class Button:
             self.pressed = False
 
         # drawing the button
-        pygame.draw.rect(self.display, self.color, self.rect)
+        self.display.blit(self.sprite, self.rect)
 
         # initializing font
-        font = pygame.font.SysFont(None, 48)
-        img = font.render(self.text, True, 'Purple')
+        font = pygame.font.SysFont(None, self.fontSize)
+        img = font.render(self.text, True, self.textColor)
 
         # getting coordinates of the text
         textCenterX, textCenterY = img.get_rect().center
-        rectCenterX, rectCenterY = self.rect.center
+        rectCenterX, rectCenterY = self.x, self.y
 
         # updating the display
         self.display.blit(img, (rectCenterX - textCenterX, rectCenterY - textCenterY))

@@ -11,8 +11,9 @@ class Menu:
         self.gameStateManager = gameStateManager
 
         # creating buttons
-        self.startButton = Button(display, 400, 400, 400, 75, 'gray', 'Начать')
-        self.exitButton = Button(display, 400, 600, 400, 75, 'gray', 'Выйти')
+        self.startButton = Button(display, 600, 450, 'gray', 'Начать', 48, pygame.Color(195, 2, 168))
+        self.exitButton = Button(display, 600, 650, 'gray', 'Выйти', 48, pygame.Color(195, 2, 168))
+        self.gameButton = Button(display, 600, 100, 'black', 'Название игры', 80, pygame.Color(195, 2, 168))
 
     # doing stuff
     def run(self):
@@ -21,6 +22,7 @@ class Menu:
         # drawing buttons
         self.startButton.draw()
         self.exitButton.draw()
+        self.gameButton.draw()
 
         # checking whether any buttons are pressed
         if self.startButton.pressed:

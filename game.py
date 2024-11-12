@@ -1,8 +1,10 @@
-import pygame
 import sys
-from menu import Menu
+import pygame
 from gameStateManager import GameStateManager
 from level1 import Level1
+from menu import Menu
+from gameOver import GameOver
+from globalTime import GlobalTime
 
 # constants
 SCREEN_WIDTH = 1200
@@ -17,7 +19,7 @@ class Game:
         pygame.init()
 
         # creating main display (surface)
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         # creating a clock for managing FPS
         self.clock = pygame.time.Clock()
@@ -26,11 +28,14 @@ class Game:
         self.gameStateManager = GameStateManager('menu')
 
         # creating instances of Menu and Level classes
-        self.menu = Menu(self.screen, self.gameStateManager)
-        self.level1 = Level1(self.screen, self.gameStateManager, pygame.image.load('assets/background.png'))
+        self.menu = Menu(self.display, self.gameStateManager)
+        self.level1 = Level1(self.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+        self.gameOver = GameOver(self.display, self.gameStateManager)
+
+        self.globalTime = GlobalTime()
 
         # creating a dictionary for our game states
-        self.states = {'menu': self.menu, 'level': self.level1}
+        self.states = {'menu': self.menu, 'level': self.level1, 'gameOver': self.gameOver}
 
     # main function
     def run(self):
@@ -44,6 +49,8 @@ class Game:
 
             # running stuff at current state
             self.states[self.gameStateManager.get_state()].run()
+
+            self.globalTime.update()
 
             # updating display
             pygame.display.update()

@@ -14,10 +14,8 @@ class LevelParser:
         for i in range(20):
             for j in range(30):
                 match self.lines[i][j]:
-                    case '1':
-                        result.append(Wall(self.display, 'assets/wallVertical.png', j * 40, i * 40))
-                    case '2':
-                        result.append(Wall(self.display, 'assets/wallHorizontal.png', j * 40, i * 40))
+                    case 'W':
+                        result.append(Wall(self.display, 'assets/wall.png', j * 30, i * 30))
                     case 'V':
                         result.append(Bat(self.display, 'assets/bat.png', j * 40, i * 40, 'vert', 200))
                     case 'H':
