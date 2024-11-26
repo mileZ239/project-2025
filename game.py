@@ -5,6 +5,7 @@ from level1 import Level1
 from menu import Menu
 from gameOver import GameOver
 from globalTime import GlobalTime
+from sounds import sounds
 
 # constants
 SCREEN_WIDTH = 1200
@@ -14,6 +15,7 @@ FPS = 60
 
 # main class
 class Game:
+
     def __init__(self):
         # initializing pygame
         pygame.init()
@@ -39,6 +41,7 @@ class Game:
 
     # main function
     def run(self):
+        pygame.mixer.init()
         # main loop
         while True:
             # looking for events
@@ -48,7 +51,15 @@ class Game:
                     sys.exit()
 
             # running stuff at current state
-            self.states[self.gameStateManager.get_state()].run()
+            result = self.states[self.gameStateManager.get_state()].run()
+            # print(result)
+            if result == 'menu':
+                sounds.play('stop')
+                self.gameStateManager.set_state('menu')
+            elif result == 'level':
+                sounds.play('stop')
+                self.states['level'] = Level1(self.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+                self.gameStateManager.set_state('level')
 
             self.globalTime.update()
 

@@ -1,12 +1,20 @@
+# imports
 from level import Level
 from levelParser import LevelParser
+from sounds import sounds
 
 
+# first level class
 class Level1(Level):
     def __init__(self, display, gameStateManager, background):
+        # basic init
         super().__init__(display, gameStateManager, background)
+
+        # player starting position
         self.player.x = 60
         self.player.y = 30
+
+        # walls and entities
         self.elements = LevelParser(display, 'assets/levels/level1.txt').parse()
         self.walls = []
         self.entities = []
@@ -39,6 +47,7 @@ class Level1(Level):
     def checkCollisionsEntities(self):
         for entity in self.entities:
             if self.player.rect.colliderect(entity.rect):
+                sounds.play('gameOver')
                 self.gameStateManager.set_state('gameOver')
 
     def drawWalls(self):

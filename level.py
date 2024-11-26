@@ -1,3 +1,4 @@
+# imports
 from player import Player
 
 
@@ -8,4 +9,3 @@ class Level:
         self.gameStateManager = gameStateManager
         self.background = background
         self.player = Player(display, 'assets/playerSouth.png')
-

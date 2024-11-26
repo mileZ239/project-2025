@@ -37,11 +37,10 @@ class Button:
         pos = pygame.mouse.get_pos()
 
         # checking whether button is pressed or not
-        if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1:
-                self.pressed = True
-                print("Button", self.text, "is pressed")
-        if pygame.mouse.get_pressed()[0] == 0:
+        if self.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+            self.pressed = True
+            print("Button", self.text, "is pressed")
+        else:
             self.pressed = False
 
         # drawing the button
