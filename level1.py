@@ -29,16 +29,12 @@ class Level1(Level):
     def checkCollisionsWalls(self):
         hasCollisions = False
         for wall in self.walls:
-            if self.player.rect.colliderect(wall.rect) and \
-                wall not in self.player.ignoredWalls and \
-                (wall.x // 30 != self.player.ignoreX and
-                 wall.y // 30 != self.player.ignoreY):
+            if (self.player.rect.colliderect(wall.rect) and not
+                (self.player.ignoreX - 30 == wall.x or wall.x == self.player.ignoreX + 30 or
+                self.player.ignoreY - 30 == wall.y or wall.y == self.player.ignoreY + 30)) or \
+                    wall in self.player.badWalls:
+
                 hasCollisions = True
-                self.player.ignoredWalls.append(wall)
-                if self.player.speedX != 0:
-                    self.player.ignoreY = wall.y // 30
-                elif self.player.speedY != 0:
-                    self.player.ignoreX = wall.x // 30
                 self.player.speedX = 0
                 self.player.speedY = 0
                 self.player.moving = False
@@ -62,7 +58,7 @@ class Level1(Level):
     def run(self):
         self.display.blit(self.background, (0, 0))
         if not self.checkCollisionsWalls():
-            self.player.ignoredWalls = []
+            self.player.badWalls.clear()
         self.drawWalls()
         self.drawEntities()
         self.checkCollisionsEntities()

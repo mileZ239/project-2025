@@ -18,9 +18,9 @@ class Player:
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
 
         # something for colliding with walls
-        self.ignoreX = 239
-        self.ignoreY = 239
-        self.ignoredWalls = []
+        self.ignoreX = -239
+        self.ignoreY = -239
+        self.badWalls = []
 
         # speed and moving state
         self.speedX = 0
@@ -44,19 +44,34 @@ class Player:
         # changing direction
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
+            self.ignoreY = self.y
+            self.badWalls.append((self.x, self.y + 30))
+            self.badWalls.append((self.x, self.y - 30))
             self.moving = True
             self.speedX = 15
         elif keys[pygame.K_a]:
+            self.ignoreY = self.y
+            self.badWalls.append((self.x, self.y + 30))
+            self.badWalls.append((self.x, self.y - 30))
             self.moving = True
             self.speedX = -15
         elif keys[pygame.K_w]:
+            self.badWalls.append((self.x + 30, self.y))
+            self.badWalls.append((self.x - 30, self.y))
+            self.ignoreX = self.x
             self.moving = True
             self.speedY = -15
         elif keys[pygame.K_s]:
+            self.badWalls.append((self.x + 30, self.y))
+            self.badWalls.append((self.x - 30, self.y))
+            self.ignoreX = self.x
             self.moving = True
             self.speedY = 15
         else:
             self.moving = False
+            self.ignoreX = -239
+            self.ignoreY = -239
+            self.badWalls.clear()
 
     # doing stuff
     def run(self):

@@ -9,7 +9,7 @@ class Wall:
         self.x = x
         self.y = y
         self.sprite = pygame.image.load(sprite)
-        self.rect = self.sprite.get_rect(topleft=(self.x, self.y))
+        self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'wall'
 
     # doing stuff
