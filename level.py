@@ -8,4 +8,4 @@ class Level:
         self.display = display
         self.gameStateManager = gameStateManager
         self.background = background
-        self.player = Player(display, 'assets/playerSouth.png')
+        self.player = Player(display)
