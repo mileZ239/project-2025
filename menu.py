@@ -6,14 +6,14 @@ from button import Button
 
 # menu class
 class Menu:
-    def __init__(self, display, gameStateManager):
+    def __init__(self, display):
         self.display = display
-        self.gameStateManager = gameStateManager
 
         # creating buttons
-        self.startButton = Button(display, 600, 450, 'gray', 'Начать', 48, pygame.Color(195, 2, 168))
-        self.exitButton = Button(display, 600, 650, 'gray', 'Выйти', 48, pygame.Color(195, 2, 168))
-        self.gameButton = Button(display, 600, 100, 'black', 'Название игры', 80, pygame.Color(195, 2, 168))
+        self.startButton = Button(display, 600, 450, 'assets/buttonBackgroundWhite.png', 'Начать', 48, pygame.Color(195, 2, 168))
+        self.exitButton = Button(display, 600, 650, 'assets/buttonBackgroundWhite.png', 'Выход', 48, pygame.Color(195, 2, 168))
+        self.gameButton = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Название игры', 80, pygame.Color(195, 2, 168))
+        self.settingsButton = Button(display, 1140, 60, 'assets/settingsButton.png')
 
     # doing stuff
     def run(self):
@@ -23,12 +23,15 @@ class Menu:
         self.startButton.draw()
         self.exitButton.draw()
         self.gameButton.draw()
+        self.settingsButton.draw()
 
         # checking whether any buttons are pressed
         if self.startButton.pressed:
             # updating game state
             return 'level'
             # self.gameStateManager.set_state('level')
-        if self.exitButton.pressed:
+        elif self.settingsButton.pressed:
+            return 'settings'
+        elif self.exitButton.pressed:
             pygame.quit()
             sys.exit()

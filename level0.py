@@ -5,7 +5,7 @@ from sounds import sounds
 
 
 # first level class
-class Level1(Level):
+class Level0(Level):
     def __init__(self, display, gameStateManager, background):
         # basic init
         super().__init__(display, gameStateManager, background)
@@ -15,7 +15,7 @@ class Level1(Level):
         self.player.y = 30
 
         # walls and entities
-        self.elements = LevelParser(display, 'assets/levels/level1.txt').parse()
+        self.elements = LevelParser(display, 'assets/levels/0.txt').parse()
         self.walls = []
         self.entities = []
         for element in self.elements:

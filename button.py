@@ -4,20 +4,15 @@ import pygame
 
 # button class
 class Button:
-    def __init__(self, display, x, y, color, text='', fontSize=48, textColor='Purple'):
+    def __init__(self, display, x, y, background, text='', fontSize=48, textColor='Purple'):
         self.display = display
 
         # position of the button
         self.x = x
         self.y = y
 
-        # color of the button
-        self.color = color
-
         # rectangle of the button
-        self.sprite = pygame.image.load('assets/buttonBackgroundWhite.png')
-        if color == 'black':
-            self.sprite = pygame.image.load('assets/buttonBackgroundBlack.png')
+        self.sprite = pygame.image.load(background)
 
         self.rect = self.sprite.get_rect()
         self.rect.center = (self.x, self.y)

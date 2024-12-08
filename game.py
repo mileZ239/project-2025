@@ -1,16 +1,12 @@
 import sys
 import pygame
 from gameStateManager import GameStateManager
-from level1 import Level1
+from level0 import Level0
 from menu import Menu
 from gameOver import GameOver
-from globalTime import GlobalTime
 from sounds import sounds
-
-# constants
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 800
-FPS = 60
+from settings import Settings
+from globalStuff import globalStuff
 
 
 # main class
@@ -20,9 +16,6 @@ class Game:
         # initializing pygame
         pygame.init()
 
-        # creating main display (surface)
-        self.display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
         # creating a clock for managing FPS
         self.clock = pygame.time.Clock()
 
@@ -30,14 +23,16 @@ class Game:
         self.gameStateManager = GameStateManager('menu')
 
         # creating instances of Menu and Level classes
-        self.menu = Menu(self.display, self.gameStateManager)
-        self.level1 = Level1(self.display, self.gameStateManager, pygame.image.load('assets/background.png'))
-        self.gameOver = GameOver(self.display, self.gameStateManager)
-
-        self.globalTime = GlobalTime()
+        self.menu = Menu(globalStuff.display)
+        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+        self.gameOver = GameOver(globalStuff.display)
+        self.settings = Settings(globalStuff.display)
 
         # creating a dictionary for our game states
-        self.states = {'menu': self.menu, 'level': self.level1, 'gameOver': self.gameOver}
+        self.states = {'menu': self.menu,
+                       'gameOver': self.gameOver,
+                       'settings': self.settings,
+                       'level0': self.level0}
 
     # main function
     def run(self):
@@ -58,11 +53,14 @@ class Game:
                 self.gameStateManager.set_state('menu')
             elif result == 'level':
                 sounds.play('stop')
-                self.states['level'] = Level1(self.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+                self.states['level'] = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
                 self.gameStateManager.set_state('level')
+            elif result == 'settings':
+                sounds.play('stop')
+                self.gameStateManager.set_state('settings')
 
-            self.globalTime.update()
+            globalStuff.updateTime()
 
             # updating display
             pygame.display.update()
-            self.clock.tick(FPS)
+            self.clock.tick(globalStuff.FPS)
