@@ -4,7 +4,7 @@ import pygame
 
 # button class
 class Button:
-    def __init__(self, display, x, y, background, text='', fontSize=48, textColor='Purple'):
+    def __init__(self, display, x, y, background, text='', fontSize=48, textColor=pygame.Color(195, 2, 168)):
         self.display = display
 
         # position of the button

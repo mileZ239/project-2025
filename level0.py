@@ -2,6 +2,7 @@
 from level import Level
 from levelParser import LevelParser
 from sounds import sounds
+import pygame
 
 
 # first level class
@@ -55,6 +56,9 @@ class Level0(Level):
 
     # doing stuff
     def run(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            return 'pause 0'
         self.display.blit(self.background, (0, 0))
         self.checkCollisionsWalls()
         self.drawWalls()

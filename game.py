@@ -6,6 +6,7 @@ from menu import Menu
 from gameOver import GameOver
 from sounds import sounds
 from settings import Settings
+from pause import Pause
 from globalStuff import globalStuff
 
 
@@ -27,11 +28,13 @@ class Game:
         self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
         self.gameOver = GameOver(globalStuff.display)
         self.settings = Settings(globalStuff.display)
+        self.pause = Pause(globalStuff.display, self.gameStateManager)
 
         # creating a dictionary for our game states
         self.states = {'menu': self.menu,
                        'gameOver': self.gameOver,
                        'settings': self.settings,
+                       'pause': self.pause,
                        'level0': self.level0}
 
     # main function
@@ -47,17 +50,21 @@ class Game:
 
             # running stuff at current state
             result = self.states[self.gameStateManager.get_state()].run()
-            # print(result)
-            if result == 'menu':
-                sounds.play('stop')
-                self.gameStateManager.set_state('menu')
-            elif result == 'level':
-                sounds.play('stop')
-                self.states['level'] = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
-                self.gameStateManager.set_state('level')
-            elif result == 'settings':
-                sounds.play('stop')
-                self.gameStateManager.set_state('settings')
+            if result is not None:
+                if result == 'menu':
+                    sounds.play('stop')
+                    self.gameStateManager.set_state('menu')
+                elif result == 'level0':
+                    sounds.play('stop')
+                    self.states['level0'] = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+                    self.gameStateManager.set_state('level0')
+                elif result == 'settings':
+                    sounds.play('stop')
+                    self.gameStateManager.set_state('settings')
+                elif 'pause' in result:
+                    result = result.replace('pause ', '')
+                    self.gameStateManager.set_state('pause')
+                    self.states['pause'].level = result
 
             globalStuff.updateTime()
 

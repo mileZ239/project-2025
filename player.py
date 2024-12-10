@@ -24,7 +24,6 @@ class Player:
         # something for colliding with walls
         self.ignoreX = -239
         self.ignoreY = -239
-        self.badWalls = []
 
         # speed and moving state
         self.speedX = 0
