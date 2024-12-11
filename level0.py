@@ -5,7 +5,7 @@ from sounds import sounds
 import pygame
 
 
-# first level class
+# testing level class
 class Level0(Level):
     def __init__(self, display, gameStateManager, background):
         # basic init
@@ -18,12 +18,15 @@ class Level0(Level):
         # walls and entities
         self.elements = LevelParser(display, 'assets/levels/0.txt').parse()
         self.walls = []
-        self.entities = []
+        self.bats = []
+        self.thorns = []
         for element in self.elements:
             if element.name == 'wall':
                 self.walls.append(element)
-            elif element.name == 'bat' or element.name == 'cannon':
-                self.entities.append(element)
+            elif element.name == 'bat':
+                self.bats.append(element)
+            elif element.name == 'thorn':
+                self.thorns.append(element)
             else:
                 pass
 
@@ -40,19 +43,28 @@ class Level0(Level):
                 self.player.moving = False
         return hasCollisions
 
-    def checkCollisionsEntities(self):
-        for entity in self.entities:
-            if self.player.rect.colliderect(entity.rect):
+    def checkCollisionsBats(self):
+        for bat in self.bats:
+            if self.player.rect.colliderect(bat.rect):
                 sounds.play('gameOver')
                 self.gameStateManager.set_state('gameOver')
+
+    def checkCollisionsTrorns(self):
+        for thorn in self.thorns:
+            if self.player.rect.colliderect(thorn.rect):
+                pass
 
     def drawWalls(self):
         for wall in self.walls:
             wall.run()
 
-    def drawEntities(self):
-        for entity in self.entities:
-            entity.run()
+    def drawBats(self):
+        for bat in self.bats:
+            bat.run()
+
+    def drawThorns(self):
+        for thorn in self.thorns:
+            thorn.run()
 
     # doing stuff
     def run(self):
@@ -60,8 +72,13 @@ class Level0(Level):
         if keys[pygame.K_ESCAPE]:
             return 'pause 0'
         self.display.blit(self.background, (0, 0))
-        self.checkCollisionsWalls()
+
         self.drawWalls()
-        self.drawEntities()
-        self.checkCollisionsEntities()
+        self.drawBats()
+        self.drawThorns()
+
+        self.checkCollisionsBats()
+        self.checkCollisionsWalls()
+        self.checkCollisionsTrorns()
+
         self.player.run()

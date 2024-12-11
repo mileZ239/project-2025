@@ -21,5 +21,5 @@ class Pause:
         if self.resumeButton.pressed:
             self.gameStateManager.set_state('level' + str(self.level))
         elif self.menuButton.pressed:
-            time.sleep(0.1)
+            time.sleep(0.3)
             return 'menu'

@@ -23,11 +23,13 @@ class LevelParser:
                 # H - horizontal bat
                 match self.lines[i][j]:
                     case 'W':
-                        result.append(Wall(self.display, 'assets/wall.png', j * 30, i * 30))
+                        result.append(Wall(self.display, j * 30, i * 30))
                     case 'V':
-                        result.append(Bat(self.display, 'assets/bat.png', j * 40, i * 40, 'vert', 200))
+                        result.append(Bat(self.display, j * 40, i * 40, 'vert', 200))
                     case 'H':
-                        result.append(Bat(self.display, 'assets/bat.png', j * 40, i * 40, 'hor', 200))
+                        result.append(Bat(self.display, j * 40, i * 40, 'hor', 200))
+                    case '1':
+                        result
                     case _:
                         pass
         return result

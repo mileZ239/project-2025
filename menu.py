@@ -29,12 +29,12 @@ class Menu:
 
         # checking whether any buttons are pressed
         if self.startButton.pressed:
-            time.sleep(0.1)
+            time.sleep(0.3)
             # updating game state
             return 'level0'
             # self.gameStateManager.set_state('level')
         elif self.settingsButton.pressed:
-            time.sleep(0.1)
+            time.sleep(0.3)
             return 'settings'
         elif self.exitButton.pressed:
             pygame.quit()

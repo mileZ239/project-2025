@@ -2,7 +2,7 @@ import pygame
 
 
 class Bat:
-    def __init__(self, display, sprite, x, y, direction, flyingRange=200):
+    def __init__(self, display, x, y, direction, flyingRange=200):
         self.display = display
         self.baseX = x
         self.baseY = y
@@ -16,7 +16,7 @@ class Bat:
             self.speedY = 5
         self.flyingRange = flyingRange
         self.delay = 1000
-        self.sprite = pygame.image.load(sprite)
+        self.sprite = pygame.image.load('assets/bat.png')
         self.rect = self.sprite.get_rect(center=(self.x, self.y))
         self.name = 'bat'
 

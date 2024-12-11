@@ -12,5 +12,5 @@ class Settings:
         self.display.fill('black')
         self.returnButton.draw()
         if self.returnButton.pressed:
-            time.sleep(0.1)
+            time.sleep(0.3)
             return 'menu'
