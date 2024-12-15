@@ -1,8 +1,10 @@
+import random
+
 import pygame
 
 
 class Bat:
-    def __init__(self, display, x, y, direction, flyingRange=200):
+    def __init__(self, display, x, y, direction, randomRange=False, flyingRange=100):
         self.display = display
         self.baseX = x
         self.baseY = y
@@ -14,7 +16,10 @@ class Bat:
             self.speedX = 5
         else:
             self.speedY = 5
-        self.flyingRange = flyingRange
+        if randomRange:
+            self.flyingRange = random.randint(flyingRange // 2, flyingRange * 3 // 2)
+        else:
+            self.flyingRange = flyingRange
         self.delay = 1000
         self.sprite = pygame.image.load('assets/bat.png')
         self.rect = self.sprite.get_rect(center=(self.x, self.y))

@@ -12,13 +12,13 @@ class Player:
         self.y = y
 
         # sprites
-        self.sprites = {'east': pygame.image.load('assets/playerEast.png').convert(),
-                        'west': pygame.image.load('assets/playerWest.png').convert(),
-                        'south': pygame.image.load('assets/playerSouth.png').convert(),
-                        'north': pygame.image.load('assets/playerNorth.png').convert(),
-                        'start': pygame.image.load('assets/playerSouth.png').convert()}
+        self.sprites = {'East': pygame.image.load('assets/playerEast.png').convert(),
+                        'West': pygame.image.load('assets/playerWest.png').convert(),
+                        'South': pygame.image.load('assets/playerSouth.png').convert(),
+                        'North': pygame.image.load('assets/playerNorth.png').convert(),
+                        'Start': pygame.image.load('assets/playerSouth.png').convert()}
         self.spriteMoving = pygame.image.load('assets/playerMoving.png').convert()
-        self.currentSprite = self.sprites['start']
+        self.currentSprite = self.sprites['Start']
         self.rect = self.currentSprite.get_rect(center=(self.x + 15, self.y + 15))
 
         # something for colliding with walls
@@ -29,7 +29,7 @@ class Player:
         self.speedX = 0
         self.speedY = 0
         self.moving = False
-        self.facing = 'start'
+        self.facing = 'Start'
 
         self.name = 'player'
 
@@ -47,26 +47,26 @@ class Player:
 
         # changing direction
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d] and self.facing != 'east':
-            self.facing = 'east'
+        if keys[pygame.K_d] and self.facing != 'East':
+            self.facing = 'East'
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
             self.speedX = 15
-        elif keys[pygame.K_a] and self.facing != 'west':
-            self.facing = 'west'
+        elif keys[pygame.K_a] and self.facing != 'West':
+            self.facing = 'West'
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
             self.speedX = -15
-        elif keys[pygame.K_w] and self.facing != 'north':
-            self.facing = 'north'
+        elif keys[pygame.K_w] and self.facing != 'North':
+            self.facing = 'North'
             self.ignoreX = self.x
             self.ignoreY = -239
             self.moving = True
             self.speedY = -15
-        elif keys[pygame.K_s] and self.facing != 'south':
-            self.facing = 'south'
+        elif keys[pygame.K_s] and self.facing != 'South':
+            self.facing = 'South'
             self.ignoreX = self.x
             self.ignoreY = -239
             self.moving = True

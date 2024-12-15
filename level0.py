@@ -49,10 +49,11 @@ class Level0(Level):
                 sounds.play('gameOver')
                 self.gameStateManager.set_state('gameOver')
 
-    def checkCollisionsTrorns(self):
+    def checkCollisionsThorns(self):
         for thorn in self.thorns:
-            if self.player.rect.colliderect(thorn.rect):
-                pass
+            if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing:
+                sounds.play('gameOver')
+                self.gameStateManager.set_state('gameOver')
 
     def drawWalls(self):
         for wall in self.walls:
@@ -74,11 +75,11 @@ class Level0(Level):
         self.display.blit(self.background, (0, 0))
 
         self.drawWalls()
-        self.drawBats()
         self.drawThorns()
+        self.drawBats()
 
         self.checkCollisionsBats()
         self.checkCollisionsWalls()
-        self.checkCollisionsTrorns()
+        self.checkCollisionsThorns()
 
         self.player.run()

@@ -1,6 +1,7 @@
 # imports
 from wall import Wall
 from bat import Bat
+from thorn import Thorn
 
 
 # class for parsing data from .txt file
@@ -25,11 +26,17 @@ class LevelParser:
                     case 'W':
                         result.append(Wall(self.display, j * 30, i * 30))
                     case 'V':
-                        result.append(Bat(self.display, j * 40, i * 40, 'vert', 200))
+                        result.append(Bat(self.display, j * 30, i * 30, 'vert', True))
                     case 'H':
-                        result.append(Bat(self.display, j * 40, i * 40, 'hor', 200))
+                        result.append(Bat(self.display, j * 30, i * 30, 'hor', True))
                     case '1':
-                        result
+                        result.append(Thorn(self.display, j * 30, i * 30, 'South'))
+                    case '2':
+                        result.append(Thorn(self.display, j * 30, i * 30, 'West'))
+                    case '3':
+                        result.append(Thorn(self.display, j * 30, i * 30, 'North'))
+                    case '4':
+                        result.append(Thorn(self.display, j * 30, i * 30, 'East'))
                     case _:
                         pass
         return result

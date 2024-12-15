@@ -8,8 +8,9 @@ class Thorn:
         self.x = x
         self.y = y
 
+        self.facing = direction
         self.sprite = pygame.image.load('assets/thorns' + direction + '.png')
-        self.rect = self.sprite.get_rect(center=(self.x, self.y))
+        self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'thorn'
 
     def run(self):
