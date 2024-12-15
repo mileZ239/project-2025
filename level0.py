@@ -1,7 +1,6 @@
 # imports
 from level import Level
 from levelParser import LevelParser
-from sounds import sounds
 import pygame
 
 
@@ -17,9 +16,6 @@ class Level0(Level):
 
         # walls and entities
         self.elements = LevelParser(display, 'assets/levels/0.txt').parse()
-        self.walls = []
-        self.bats = []
-        self.thorns = []
         for element in self.elements:
             if element.name == 'wall':
                 self.walls.append(element)
@@ -29,43 +25,6 @@ class Level0(Level):
                 self.thorns.append(element)
             else:
                 pass
-
-    def checkCollisionsWalls(self):
-        hasCollisions = False
-        for wall in self.walls:
-            if self.player.rect.colliderect(wall.rect) and not \
-                    (self.player.ignoreX - 30 == wall.x or wall.x == self.player.ignoreX + 30 or
-                     self.player.ignoreY - 30 == wall.y or wall.y == self.player.ignoreY + 30):
-
-                hasCollisions = True
-                self.player.speedX = 0
-                self.player.speedY = 0
-                self.player.moving = False
-        return hasCollisions
-
-    def checkCollisionsBats(self):
-        for bat in self.bats:
-            if self.player.rect.colliderect(bat.rect):
-                sounds.play('gameOver')
-                self.gameStateManager.set_state('gameOver')
-
-    def checkCollisionsThorns(self):
-        for thorn in self.thorns:
-            if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing:
-                sounds.play('gameOver')
-                self.gameStateManager.set_state('gameOver')
-
-    def drawWalls(self):
-        for wall in self.walls:
-            wall.run()
-
-    def drawBats(self):
-        for bat in self.bats:
-            bat.run()
-
-    def drawThorns(self):
-        for thorn in self.thorns:
-            thorn.run()
 
     # doing stuff
     def run(self):

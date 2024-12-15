@@ -19,9 +19,14 @@ class LevelParser:
         for i in range(20):
             for j in range(30):
                 # checking for wall / entity
+                # . - free space
                 # W - wall
                 # V - vertical bat
                 # H - horizontal bat
+                # 1 - up thorns
+                # 2 - right thorns
+                # 3 - down thorns
+                # 4 - left thorns
                 match self.lines[i][j]:
                     case 'W':
                         result.append(Wall(self.display, j * 30, i * 30))

@@ -1,6 +1,5 @@
 # imports
 import time
-import webbrowser
 from sounds import sounds
 from button import Button
 
@@ -34,6 +33,4 @@ class GameOver:
             return 'menu'
             # self.gameStateManager.set_state('menu')
         elif self.giveUpButton.pressed:
-            webbrowser.open('https://rutube.ru/video/4481c5e861a22c5e2369a8ca10fd40c0/')
             sounds.play('giveUp')
-            time.sleep(1)
