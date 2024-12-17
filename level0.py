@@ -25,6 +25,9 @@ class Level0(Level):
                 self.thorns.append(element)
             elif element.name == 'endPortal' or element.name == 'portal':
                 self.portals.append(element)
+            elif element.name == 'cannon':
+                self.cannons.append(element)
+                self.walls.append(element)
             else:
                 pass
 
@@ -39,6 +42,7 @@ class Level0(Level):
         self.drawWalls()
         self.drawThorns()
         self.drawBats()
+        self.drawCannons()
 
         self.checkCollisionsPortals()
         self.checkCollisionsBats()

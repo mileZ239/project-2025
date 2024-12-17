@@ -16,6 +16,7 @@ class Level:
         self.bats = []
         self.thorns = []
         self.portals = []
+        self.cannons = []
 
     def drawPortals(self):
         for portal in self.portals:
@@ -32,6 +33,10 @@ class Level:
     def drawThorns(self):
         for thorn in self.thorns:
             thorn.run()
+
+    def drawCannons(self):
+        for cannon in self.cannons:
+            cannon.run()
 
     def checkCollisionsPortals(self):
         for portal in self.portals:
