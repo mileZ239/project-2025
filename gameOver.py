@@ -34,3 +34,4 @@ class GameOver:
             # self.gameStateManager.set_state('menu')
         elif self.giveUpButton.pressed:
             sounds.play('giveUp')
+            time.sleep(0.5)

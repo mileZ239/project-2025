@@ -15,6 +15,11 @@ class Level:
         self.walls = []
         self.bats = []
         self.thorns = []
+        self.portals = []
+
+    def drawPortals(self):
+        for portal in self.portals:
+            portal.run()
 
     def drawWalls(self):
         for wall in self.walls:
@@ -27,6 +32,12 @@ class Level:
     def drawThorns(self):
         for thorn in self.thorns:
             thorn.run()
+
+    def checkCollisionsPortals(self):
+        for portal in self.portals:
+            if self.player.rect.colliderect(portal.rect):
+                if portal.name == 'endPortal':
+                    self.gameStateManager.set_state('menu')
 
     def checkCollisionsBats(self):
         for bat in self.bats:

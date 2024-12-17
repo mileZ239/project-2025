@@ -2,6 +2,7 @@
 from wall import Wall
 from bat import Bat
 from thorn import Thorn
+from endPortal import EndPortal
 
 
 # class for parsing data from .txt file
@@ -20,6 +21,7 @@ class LevelParser:
             for j in range(30):
                 # checking for wall / entity
                 # . - free space
+                # E - end
                 # W - wall
                 # V - vertical bat
                 # H - horizontal bat
@@ -28,6 +30,8 @@ class LevelParser:
                 # 3 - down thorns
                 # 4 - left thorns
                 match self.lines[i][j]:
+                    case 'E':
+                        result.append(EndPortal(self.display, j * 30, i * 30))
                     case 'W':
                         result.append(Wall(self.display, j * 30, i * 30))
                     case 'V':

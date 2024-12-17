@@ -23,6 +23,8 @@ class Level0(Level):
                 self.bats.append(element)
             elif element.name == 'thorn':
                 self.thorns.append(element)
+            elif element.name == 'endPortal' or element.name == 'portal':
+                self.portals.append(element)
             else:
                 pass
 
@@ -33,10 +35,12 @@ class Level0(Level):
             return 'pause 0'
         self.display.blit(self.background, (0, 0))
 
+        self.drawPortals()
         self.drawWalls()
         self.drawThorns()
         self.drawBats()
 
+        self.checkCollisionsPortals()
         self.checkCollisionsBats()
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
