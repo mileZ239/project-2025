@@ -48,5 +48,6 @@ class Level0(Level):
         self.checkCollisionsBats()
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
+        self.checkCollisionsProjectiles()
 
         self.player.run()

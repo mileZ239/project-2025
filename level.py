@@ -57,17 +57,20 @@ class Level:
                 self.gameStateManager.set_state('gameOver')
 
     def checkCollisionsWalls(self):
-        hasCollisions = False
         for wall in self.walls:
             if self.player.rect.colliderect(wall.rect) and not \
                     (self.player.ignoreX - 30 == wall.x or wall.x == self.player.ignoreX + 30 or
                      self.player.ignoreY - 30 == wall.y or wall.y == self.player.ignoreY + 30):
-
-                hasCollisions = True
                 self.player.speedX = 0
                 self.player.speedY = 0
                 self.player.moving = False
-        return hasCollisions
+
+    def checkCollisionsProjectiles(self):
+        for cannons in self.cannons:
+            for projectile in cannons.projectiles:
+                if self.player.rect.colliderect(projectile.rect):
+                    sounds.play('gameOver')
+                    self.gameStateManager.set_state('gameOver')
 
     def pause(self):
         self.paused = True
