@@ -58,9 +58,20 @@ class Level:
 
     def checkCollisionsWalls(self):
         for wall in self.walls:
+            ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
+            playerX, playerY = self.player.x, self.player.y
+            facing = self.player.facing
+            if ((facing == 'North' and playerY - 30 == wall.y and playerX == wall.x) or
+                    (facing == 'South' and playerY + 30 == wall.y and playerX == wall.x) or
+                    (facing == 'East' and playerX + 30 == wall.x and playerY == wall.y) or
+                    (facing == 'West' and playerX - 30 == wall.x and playerY == wall.y)):
+                self.player.speedX = 0
+                self.player.speedY = 0
+                self.player.moving = False
+                continue
             if self.player.rect.colliderect(wall.rect) and not \
-                    (self.player.ignoreX - 30 == wall.x or wall.x == self.player.ignoreX + 30 or
-                     self.player.ignoreY - 30 == wall.y or wall.y == self.player.ignoreY + 30):
+                    (ignoreX - 30 == wall.x or wall.x == ignoreX + 30 or
+                     ignoreY - 30 == wall.y or wall.y == ignoreY + 30):
                 self.player.speedX = 0
                 self.player.speedY = 0
                 self.player.moving = False
