@@ -11,6 +11,7 @@ class Level:
         self.background = background
         self.player = Player(display)
         self.paused = False
+        self.name = 'level'
 
         self.walls = []
         self.bats = []
@@ -42,7 +43,9 @@ class Level:
         for portal in self.portals:
             if self.player.rect.colliderect(portal.rect):
                 if portal.name == 'endPortal':
-                    self.gameStateManager.set_state('menu')
+                    nextLevel = 'level' + str(int(self.name[-1]) + 1)
+                    return nextLevel
+                    # self.gameStateManager.set_state('menu')
 
     def checkCollisionsBats(self):
         for bat in self.bats:
@@ -86,3 +89,19 @@ class Level:
     def pause(self):
         self.paused = True
         self.gameStateManager.setState('pause')
+
+    def drawStuff(self):
+        self.drawPortals()
+        self.drawWalls()
+        self.drawThorns()
+        self.drawBats()
+        self.drawCannons()
+
+    def checkCollisions(self):
+        endPortalCollision = self.checkCollisionsPortals()
+        if endPortalCollision is not None:
+            return endPortalCollision
+        self.checkCollisionsBats()
+        self.checkCollisionsWalls()
+        self.checkCollisionsThorns()
+        self.checkCollisionsProjectiles()

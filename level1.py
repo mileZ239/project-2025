@@ -5,18 +5,18 @@ import pygame
 
 
 # testing level class
-class Level0(Level):
+class Level1(Level):
     def __init__(self, display, gameStateManager, background):
         # basic init
         super().__init__(display, gameStateManager, background)
 
         # player starting position
-        self.player.x = 60
-        self.player.y = 30
+        self.player.x = 300
+        self.player.y = 300
 
         # walls and entities
-        self.elements = LevelParser(display, 'assets/levels/0.txt').parse()
-        self.name = 'level0'
+        self.elements = LevelParser(display, 'assets/levels/1.txt').parse()
+        self.name = 'level1'
         for element in self.elements:
             if element.name == 'wall':
                 self.walls.append(element)
@@ -36,7 +36,7 @@ class Level0(Level):
     def run(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
-            return 'pause 0'
+            return 'pause 1'
         self.display.blit(self.background, (0, 0))
 
         self.drawStuff()
