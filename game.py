@@ -6,6 +6,7 @@ from gameOver import GameOver
 from sounds import sounds
 from settings import Settings
 from pause import Pause
+from records import Records
 from globalStuff import globalStuff
 from level0 import Level0
 from level1 import Level1
@@ -29,6 +30,7 @@ class Game:
         self.gameOver = GameOver(globalStuff.display)
         self.settings = Settings(globalStuff.display)
         self.pause = Pause(globalStuff.display, self.gameStateManager)
+        self.records = Records(globalStuff.display)
 
         # levels
         self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
@@ -39,6 +41,7 @@ class Game:
                        'gameOver': self.gameOver,
                        'settings': self.settings,
                        'pause': self.pause,
+                       'records': self.records,
                        'level0': self.level0,
                        'level1': self.level1}
 
@@ -62,6 +65,8 @@ class Game:
                 elif result == 'settings':
                     sounds.play('stop')
                     self.gameStateManager.set_state('settings')
+                elif result == 'records':
+                    self.gameStateManager.set_state('records')
                 elif 'pause' in result:
                     result = result.replace('pause ', '')
                     self.gameStateManager.set_state('pause')
