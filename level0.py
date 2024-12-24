@@ -46,5 +46,4 @@ class Level0(Level):
         self.player.run()
 
         if collisionResult is not None:
-            self.stats.updatePasses(1)
             return collisionResult
