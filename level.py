@@ -5,9 +5,10 @@ from sounds import sounds
 
 # level class
 class Level:
-    def __init__(self, display, gameStateManager, background):
+    def __init__(self, display, gameStateManager, background, stats):
         self.display = display
         self.gameStateManager = gameStateManager
+        self.stats = stats
         self.background = background
         self.player = Player(display)
         self.paused = False
@@ -50,6 +51,7 @@ class Level:
     def checkCollisionsBats(self):
         for bat in self.bats:
             if self.player.rect.colliderect(bat.rect):
+                self.stats.updateDeaths(1)
                 sounds.play('gameOver')
                 self.gameStateManager.set_state('gameOver')
 
@@ -83,6 +85,7 @@ class Level:
         for cannons in self.cannons:
             for projectile in cannons.projectiles:
                 if self.player.rect.colliderect(projectile.rect):
+                    self.stats.updateDeaths(1)
                     sounds.play('gameOver')
                     self.gameStateManager.set_state('gameOver')
 

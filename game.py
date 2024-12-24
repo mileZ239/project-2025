@@ -8,6 +8,7 @@ from settings import Settings
 from pause import Pause
 from records import Records
 from globalStuff import globalStuff
+from stats import Stats
 from level0 import Level0
 from level1 import Level1
 
@@ -31,10 +32,11 @@ class Game:
         self.settings = Settings(globalStuff.display)
         self.pause = Pause(globalStuff.display, self.gameStateManager)
         self.records = Records(globalStuff.display)
+        self.stats = Stats()
 
         # levels
-        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
-        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'))
+        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
 
         # creating a dictionary for our game states
         self.states = {'menu': self.menu,
@@ -66,6 +68,7 @@ class Game:
                     sounds.play('stop')
                     self.gameStateManager.set_state('settings')
                 elif result == 'records':
+                    self.states['records'] = Records(globalStuff.display)
                     self.gameStateManager.set_state('records')
                 elif 'pause' in result:
                     result = result.replace('pause ', '')
@@ -74,12 +77,14 @@ class Game:
                 elif 'level' in result:
                     sounds.play('stop')
                     self.gameStateManager.set_state(result)
+                    if result != 'level0':
+                        self.stats.updatePasses(1)
                     if result == 'level0':
                         self.states[result] = Level0(globalStuff.display, self.gameStateManager,
-                                                     pygame.image.load('assets/background.png'))
+                                                     pygame.image.load('assets/background.png'), self.stats)
                     elif result == 'level1':
                         self.states[result] = Level1(globalStuff.display, self.gameStateManager,
-                                                     pygame.image.load('assets/background.png'))
+                                                     pygame.image.load('assets/background.png'), self.stats)
                     else:
                         self.gameStateManager.set_state('menu')
 

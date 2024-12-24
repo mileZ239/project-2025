@@ -6,9 +6,9 @@ import pygame
 
 # testing level class
 class Level1(Level):
-    def __init__(self, display, gameStateManager, background):
+    def __init__(self, display, gameStateManager, background, stats):
         # basic init
-        super().__init__(display, gameStateManager, background)
+        super().__init__(display, gameStateManager, background, stats)
 
         # player starting position
         self.player.x = 300
@@ -34,6 +34,7 @@ class Level1(Level):
 
     # doing stuff
     def run(self):
+        self.stats.updateTime(1)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             return 'pause 1'
@@ -45,4 +46,5 @@ class Level1(Level):
         self.player.run()
 
         if collisionResult is not None:
+            self.stats.updatePasses()
             return collisionResult

@@ -5,9 +5,9 @@ class Records:
     def __init__(self, display):
         self.display = display
 
-        self.passesData = open('assets/playerData/passes.txt', 'r').readlines()
-        self.deathsData = open('assets/playerData/deaths.txt', 'r').readlines()
-        self.timeData = open('assets/playerData/time.txt', 'r').readlines()
+        self.passesData = open('assets/stats/passes.txt', 'r').readlines()
+        self.deathsData = open('assets/stats/deaths.txt', 'r').readlines()
+        self.timeData = open('assets/stats/time.txt', 'r').readlines()
 
         self.passes = int(self.passesData[0])
         self.deaths = int(self.deathsData[0])
