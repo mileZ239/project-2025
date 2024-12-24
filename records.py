@@ -1,3 +1,4 @@
+import time
 from button import Button
 
 
@@ -22,8 +23,9 @@ class Records:
 
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Статистика', 80)
         self.avgDeathsLabel = Button(display, 600, 300, 'assets/buttonBackgroundBlack.png', 'В среднем смертей на уровень: ' + str(self.avgDeaths))
-        self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime))
-        self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей (анлак) : ' + str(self.deaths))
+        self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime) + ' с')
+        self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей (анлак): ' + str(self.deaths))
+        self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
 
     def run(self):
         self.display.fill('black')
@@ -32,3 +34,7 @@ class Records:
         self.avgDeathsLabel.draw()
         self.avgTimeLabel.draw()
         self.allDeathsLabel.draw()
+        self.returnButton.draw()
+        if self.returnButton.pressed:
+            time.sleep(0.3)
+            return 'back'

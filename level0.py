@@ -37,7 +37,7 @@ class Level0(Level):
         self.stats.updateTime(1)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
-            return 'pause 0'
+            return 'pause'
         self.display.blit(self.background, (0, 0))
 
         self.drawStuff()

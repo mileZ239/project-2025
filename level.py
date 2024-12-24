@@ -46,20 +46,19 @@ class Level:
                 if portal.name == 'endPortal':
                     nextLevel = 'level' + str(int(self.name[-1]) + 1)
                     return nextLevel
-                    # self.gameStateManager.set_state('menu')
 
     def checkCollisionsBats(self):
         for bat in self.bats:
             if self.player.rect.colliderect(bat.rect):
                 self.stats.updateDeaths(1)
                 sounds.play('gameOver')
-                self.gameStateManager.set_state('gameOver')
+                self.gameStateManager.appendState('gameOver')
 
     def checkCollisionsThorns(self):
         for thorn in self.thorns:
             if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing:
                 sounds.play('gameOver')
-                self.gameStateManager.set_state('gameOver')
+                self.gameStateManager.appendState('gameOver')
 
     def checkCollisionsWalls(self):
         for wall in self.walls:
@@ -87,11 +86,11 @@ class Level:
                 if self.player.rect.colliderect(projectile.rect):
                     self.stats.updateDeaths(1)
                     sounds.play('gameOver')
-                    self.gameStateManager.set_state('gameOver')
+                    self.gameStateManager.appendState('gameOver')
 
     def pause(self):
         self.paused = True
-        self.gameStateManager.setState('pause')
+        self.gameStateManager.appendState('pause')
 
     def drawStuff(self):
         self.drawPortals()

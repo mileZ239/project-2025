@@ -33,7 +33,6 @@ class Menu:
             time.sleep(0.3)
             # updating game state
             return 'level0'
-            # self.gameStateManager.set_state('level')
         elif self.settingsButton.pressed:
             time.sleep(0.3)
             return 'settings'

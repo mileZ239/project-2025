@@ -13,4 +13,4 @@ class Settings:
         self.returnButton.draw()
         if self.returnButton.pressed:
             time.sleep(0.3)
-            return 'menu'
+            return 'back'

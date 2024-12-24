@@ -6,8 +6,9 @@ from button import Button
 
 # class for GameOver state
 class GameOver:
-    def __init__(self, display):
+    def __init__(self, display, gameStateManager):
         self.display = display
+        self.gameStateManager = gameStateManager
 
         # creating buttons
         self.restartButton = Button(display, 300, 400, 'assets/buttonBackgroundWhite.png', 'Заново')
@@ -27,11 +28,10 @@ class GameOver:
 
         # checking whether any buttons are pressed and changing game state if needed
         if self.restartButton.pressed:
-            return 'level0'
-            # self.gameStateManager.set_state('level')
+            self.gameStateManager.prevState()
+            return self.gameStateManager.get_state()
         elif self.menuButton.pressed:
             return 'menu'
-            # self.gameStateManager.set_state('menu')
         elif self.giveUpButton.pressed:
             sounds.play('giveUp')
             time.sleep(0.5)

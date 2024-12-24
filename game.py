@@ -28,7 +28,7 @@ class Game:
 
         # creating instances of Menu and Level classes
         self.menu = Menu(globalStuff.display)
-        self.gameOver = GameOver(globalStuff.display)
+        self.gameOver = GameOver(globalStuff.display, self.gameStateManager)
         self.settings = Settings(globalStuff.display)
         self.pause = Pause(globalStuff.display, self.gameStateManager)
         self.records = Records(globalStuff.display)
@@ -66,17 +66,17 @@ class Game:
                     self.gameStateManager.set_state('menu')
                 elif result == 'settings':
                     sounds.play('stop')
-                    self.gameStateManager.set_state('settings')
+                    self.gameStateManager.appendState('settings')
                 elif result == 'records':
                     self.states['records'] = Records(globalStuff.display)
-                    self.gameStateManager.set_state('records')
-                elif 'pause' in result:
-                    result = result.replace('pause ', '')
-                    self.gameStateManager.set_state('pause')
-                    self.states['pause'].level = result
+                    self.gameStateManager.appendState('records')
+                elif result == 'pause':
+                    self.gameStateManager.appendState('pause')
+                elif result == 'back':
+                    self.gameStateManager.prevState()
                 elif 'level' in result:
                     sounds.play('stop')
-                    self.gameStateManager.set_state(result)
+                    self.gameStateManager.appendState(result)
                     if result != 'level0':
                         self.stats.updatePasses(1)
                     if result == 'level0':
@@ -86,7 +86,7 @@ class Game:
                         self.states[result] = Level1(globalStuff.display, self.gameStateManager,
                                                      pygame.image.load('assets/background.png'), self.stats)
                     else:
-                        self.gameStateManager.set_state('menu')
+                        self.gameStateManager.appendState('menu')
 
             globalStuff.updateTime()
 

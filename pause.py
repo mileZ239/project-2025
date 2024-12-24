@@ -7,7 +7,6 @@ class Pause:
     def __init__(self, display, gameStateManager):
         self.display = display
         self.gameStateManager = gameStateManager
-        self.level = -1
 
         self.resumeButton = Button(display, 600, 450, 'assets/buttonBackgroundWhite.png', 'Продолжить')
         self.menuButton = Button(display, 600, 650, 'assets/buttonBackgroundWhite.png', 'Меню')
@@ -19,7 +18,7 @@ class Pause:
         self.menuButton.draw()
         self.label.draw()
         if self.resumeButton.pressed:
-            self.gameStateManager.set_state('level' + str(self.level))
+            return 'back'
         elif self.menuButton.pressed:
             time.sleep(0.3)
             return 'menu'
