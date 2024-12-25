@@ -21,10 +21,6 @@ class Cannon:
 
     def updateProjectiles(self):
         for projectile in self.projectiles:
-            if projectile.rect.x < 0 or projectile.rect.x > globalStuff.SCREEN_WIDTH or \
-                    projectile.rect.y < 0 or projectile.rect.y > globalStuff.SCREEN_HEIGHT:
-                del projectile
-                return
             projectile.run()
 
     def run(self):

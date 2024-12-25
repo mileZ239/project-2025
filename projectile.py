@@ -27,9 +27,6 @@ class Projectile:
             case _:
                 pass
 
-    def __del__(self):
-        print('Projectile deleted')
-
     def run(self):
         self.rect.x += self.speedX
         self.rect.y += self.speedY
