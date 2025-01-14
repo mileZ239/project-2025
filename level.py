@@ -1,6 +1,7 @@
 # imports
 from player import Player
 from sounds import sounds
+import pygame
 
 
 # level class
@@ -19,6 +20,23 @@ class Level:
         self.thorns = []
         self.portals = []
         self.cannons = []
+        self.elements = []
+
+    def parseElements(self):
+        for element in self.elements:
+            if element.name == 'wall':
+                self.walls.append(element)
+            elif element.name == 'bat':
+                self.bats.append(element)
+            elif element.name == 'thorn':
+                self.thorns.append(element)
+            elif element.name == 'endPortal' or element.name == 'portal':
+                self.portals.append(element)
+            elif element.name == 'cannon':
+                self.cannons.append(element)
+                self.walls.append(element)
+            else:
+                pass
 
     def drawPortals(self):
         for portal in self.portals:
@@ -107,3 +125,18 @@ class Level:
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
         self.checkCollisionsProjectiles()
+
+    def runEverything(self):
+        self.stats.updateTime(1)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            return 'pause'
+        self.display.blit(self.background, (0, 0))
+
+        self.drawStuff()
+        collisionResult = self.checkCollisions()
+
+        self.player.run()
+
+        if collisionResult is not None:
+            return collisionResult

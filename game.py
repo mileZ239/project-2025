@@ -35,8 +35,10 @@ class Game:
         self.stats = Stats()
 
         # levels
-        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
-        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'),
+                             self.stats)
+        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'),
+                             self.stats)
 
         # creating a dictionary for our game states
         self.states = {'menu': self.menu,
@@ -60,21 +62,23 @@ class Game:
 
             # running stuff at current state
             result = self.states[self.gameStateManager.get_state()].run()
-            if result is not None:
-                if result == 'menu':
+            match result:
+                case None:
+                    pass
+                case 'menu':
                     sounds.play('stop')
                     self.gameStateManager.set_state('menu')
-                elif result == 'settings':
+                case 'settings':
                     sounds.play('stop')
                     self.gameStateManager.appendState('settings')
-                elif result == 'records':
+                case 'records':
                     self.states['records'] = Records(globalStuff.display)
                     self.gameStateManager.appendState('records')
-                elif result == 'pause':
+                case 'pause':
                     self.gameStateManager.appendState('pause')
-                elif result == 'back':
+                case 'back':
                     self.gameStateManager.prevState()
-                elif 'level' in result:
+                case _:             # level
                     sounds.play('stop')
                     self.gameStateManager.appendState(result)
                     if result != 'level0':

@@ -1,5 +1,4 @@
 import random
-from globalStuff import globalStuff
 import pygame
 from projectile import Projectile
 

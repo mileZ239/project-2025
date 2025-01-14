@@ -18,8 +18,8 @@ class LevelParser:
         # result array with walls and entities
         result = []
 
-        for i in range(20):
-            for j in range(30):
+        for i in range(27):
+            for j in range(40):
                 # checking for wall / entity
 
                 # misc
