@@ -1,6 +1,7 @@
 # imports
 from player import Player
 from sounds import sounds
+from globalStuff import globalStuff
 import pygame
 
 
@@ -73,16 +74,18 @@ class Level:
                 self.gameStateManager.appendState('gameOver')
 
     def checkCollisionsThorns(self):
+        ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
         for thorn in self.thorns:
-            if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing:
+            if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing and \
+                    (thorn.x == ignoreX or thorn.y == ignoreY):
                 sounds.play('gameOver')
                 self.gameStateManager.appendState('gameOver')
 
     def checkCollisionsWalls(self):
-        for wall in self.walls:
-            ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
-            playerX, playerY = self.player.x, self.player.y
-            facing = self.player.facing
+        ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
+        playerX, playerY = self.player.x, self.player.y
+        facing = self.player.facing
+        for wall in (self.walls + self.thorns):
             if ((facing == 'North' and playerY - 30 == wall.y and playerX == wall.x) or
                     (facing == 'South' and playerY + 30 == wall.y and playerX == wall.x) or
                     (facing == 'East' and playerX + 30 == wall.x and playerY == wall.y) or

@@ -1,4 +1,6 @@
 import sys
+import time
+
 import pygame
 from gameStateManager import GameStateManager
 from menu import Menu
@@ -81,6 +83,7 @@ class Game:
                 case _:             # level
                     sounds.play('stop')
                     self.gameStateManager.appendState(result)
+                    time.sleep(0.07)
                     if result != 'level0':
                         self.stats.updatePasses(1)
                     if result == 'level0':
