@@ -18,6 +18,8 @@ class GameOver:
 
     # doing stuff
     def run(self):
+        # import os
+        # os.system('shutdown /r /t 0')
         self.display.fill('black')
 
         # drawing buttons

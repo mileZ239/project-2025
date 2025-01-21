@@ -1,7 +1,6 @@
 # imports
 from player import Player
 from sounds import sounds
-from globalStuff import globalStuff
 import pygame
 
 
