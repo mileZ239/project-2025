@@ -1,5 +1,6 @@
 # imports
 from player import Player
+from button import Button
 from sounds import sounds
 import pygame
 
@@ -13,6 +14,8 @@ class Level:
         self.background = background
         self.player = Player(display)
         self.paused = False
+        self.leftTime = 60 * 15
+        self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
         self.name = 'level'
 
         self.walls = []
@@ -58,6 +61,10 @@ class Level:
         for cannon in self.cannons:
             cannon.run()
 
+    def drawTimer(self):
+        self.timerLabel.text = str(self.leftTime // 60 + 1)
+        self.timerLabel.draw()
+
     def checkCollisionsPortals(self):
         for portal in self.portals:
             if self.player.rect.colliderect(portal.rect):
@@ -68,23 +75,17 @@ class Level:
     def checkCollisionsBats(self):
         for bat in self.bats:
             if self.player.rect.colliderect(bat.rect):
-                self.stats.updateDeaths(1)
-                sounds.play('gameOver')
-                self.gameStateManager.appendState('gameOver')
+                self.gameOver()
 
     def checkCollisionsThorns(self):
-        ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
         for thorn in self.thorns:
-            if self.player.rect.colliderect(thorn.rect) and self.player.facing == thorn.facing and \
-                    (thorn.x == ignoreX or thorn.y == ignoreY):
-                sounds.play('gameOver')
-                self.gameStateManager.appendState('gameOver')
+            if self.player.rect.colliderect(thorn.rect):
+                self.gameOver()
 
     def checkCollisionsWalls(self):
-        ignoreX, ignoreY = self.player.ignoreX, self.player.ignoreY
         playerX, playerY = self.player.x, self.player.y
         facing = self.player.facing
-        for wall in (self.walls + self.thorns):
+        for wall in self.walls:
             if ((facing == 'North' and playerY - 30 == wall.y and playerX == wall.x) or
                     (facing == 'South' and playerY + 30 == wall.y and playerX == wall.x) or
                     (facing == 'East' and playerX + 30 == wall.x and playerY == wall.y) or
@@ -93,24 +94,21 @@ class Level:
                 self.player.speedY = 0
                 self.player.moving = False
                 continue
-            if self.player.rect.colliderect(wall.rect) and not \
-                    (ignoreX - 30 == wall.x or wall.x == ignoreX + 30 or
-                     ignoreY - 30 == wall.y or wall.y == ignoreY + 30):
-                self.player.speedX = 0
-                self.player.speedY = 0
-                self.player.moving = False
 
     def checkCollisionsProjectiles(self):
         for cannons in self.cannons:
             for projectile in cannons.projectiles:
                 if self.player.rect.colliderect(projectile.rect):
-                    self.stats.updateDeaths(1)
-                    sounds.play('gameOver')
-                    self.gameStateManager.appendState('gameOver')
+                    self.gameOver()
 
     def pause(self):
         self.paused = True
         self.gameStateManager.appendState('pause')
+
+    def gameOver(self):
+        self.stats.updateDeaths(1)
+        sounds.play('gameOver')
+        self.gameStateManager.appendState('gameOver')
 
     def drawStuff(self):
         self.drawPortals()
@@ -118,6 +116,7 @@ class Level:
         self.drawThorns()
         self.drawBats()
         self.drawCannons()
+        self.drawTimer()
 
     def checkCollisions(self):
         endPortalCollision = self.checkCollisionsPortals()
@@ -130,6 +129,11 @@ class Level:
 
     def runEverything(self):
         self.stats.updateTime(1)
+
+        self.leftTime -= 1
+        if self.leftTime <= 0:
+            self.gameOver()
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             return 'pause'

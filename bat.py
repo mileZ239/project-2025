@@ -21,7 +21,7 @@ class Bat:
             self.flyingRange = flyingRange
         self.paused = 0
         self.sprite = pygame.image.load('assets/bat.png')
-        self.rect = self.sprite.get_rect(center=(self.x, self.y))
+        self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'bat'
 
     def run(self):
@@ -36,5 +36,5 @@ class Bat:
             self.speedY = -self.speedY
             # How many frames to stay still?
             self.paused = 30
-        self.rect = self.sprite.get_rect(center=(self.x, self.y))
+        self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.display.blit(self.sprite, self.rect)
