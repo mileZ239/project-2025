@@ -1,20 +1,29 @@
 # imports
+import pygame
+
 from player import Player
 from button import Button
 from sounds import sounds
-import pygame
+from settings import Settings
 
 
 # level class
 class Level:
     def __init__(self, display, gameStateManager, background, stats):
+        # init
         self.display = display
         self.gameStateManager = gameStateManager
-        self.stats = stats
         self.background = background
+
+        # supporting classes
+        self.stats = stats
         self.player = Player(display)
+        self.settings = Settings(display)
+
+        # difficulty correction
+        self.leftTime = 60 * 20 // self.settings.difficulty
+
         self.paused = False
-        self.leftTime = 60 * 15
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
         self.name = 'level'
 
@@ -36,6 +45,7 @@ class Level:
             elif element.name == 'endPortal' or element.name == 'portal':
                 self.portals.append(element)
             elif element.name == 'cannon':
+                element.multiplier = self.settings.difficulty
                 self.cannons.append(element)
                 self.walls.append(element)
             else:
