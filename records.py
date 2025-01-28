@@ -26,6 +26,7 @@ class Records:
         self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime) + ' с')
         self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей (анлак): ' + str(self.deaths))
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
+        self.resetButton = Button(display, 600, 700, 'assets/buttonBackgroundWhite.png', 'Сбросить статистику')
 
     def run(self):
         self.display.fill('black')
@@ -35,6 +36,18 @@ class Records:
         self.avgTimeLabel.draw()
         self.allDeathsLabel.draw()
         self.returnButton.draw()
+        self.resetButton.draw()
+
+        if self.resetButton.pressed:
+            with open('assets/stats/deaths.txt', 'w') as deaths:
+                deaths.writelines('0')
+            with open('assets/stats/passes.txt', 'w') as passes:
+                passes.writelines('0')
+            with open('assets/stats/time.txt', 'w') as timee:
+                timee.writelines('0')
+            time.sleep(0.3)
+            return 'back'
+
         if self.returnButton.pressed:
             time.sleep(0.3)
             return 'back'
