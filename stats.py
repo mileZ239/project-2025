@@ -9,16 +9,25 @@ class Stats:
         self.time = int(self.timeData[0])
 
     def updateDeaths(self, val):
-        self.deaths += val
+        with open('assets/stats/deaths.txt', 'r') as deaths:
+            self.deaths = int(deaths.readlines()[0]) + val
+            deaths.close()
         with open('assets/stats/deaths.txt', 'w') as deaths:
             deaths.writelines(str(self.deaths))
+            deaths.close()
 
     def updatePasses(self, val):
-        self.passes += val
+        with open('assets/stats/passes.txt', 'r') as passes:
+            self.passes = int(passes.readlines()[0]) + val
+            passes.close()
         with open('assets/stats/passes.txt', 'w') as passes:
             passes.writelines(str(self.passes))
+            passes.close()
 
     def updateTime(self, val):
-        self.time += val
-        with open('assets/stats/time.txt', 'w') as time:
-            time.writelines(str(self.time))
+        with open('assets/stats/time.txt', 'r') as timee:
+            self.time = int(timee.readlines()[0]) + val
+            timee.close()
+        with open('assets/stats/time.txt', 'w') as timee:
+            timee.writelines(str(self.time))
+            timee.close()

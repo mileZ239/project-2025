@@ -28,9 +28,7 @@ class Records:
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
         self.resetButton = Button(display, 600, 700, 'assets/buttonBackgroundWhite.png', 'Сбросить статистику')
 
-    def run(self):
-        self.display.fill('black')
-
+    def drawStuff(self):
         self.label.draw()
         self.avgDeathsLabel.draw()
         self.avgTimeLabel.draw()
@@ -38,14 +36,25 @@ class Records:
         self.returnButton.draw()
         self.resetButton.draw()
 
+    def reset(self):
+        with open('assets/stats/deaths.txt', 'w') as deaths:
+            deaths.writelines('0')
+            deaths.close()
+        with open('assets/stats/passes.txt', 'w') as passes:
+            passes.writelines('0')
+            passes.close()
+        with open('assets/stats/time.txt', 'w') as timee:
+            timee.writelines('0')
+            timee.close()
+
+        time.sleep(0.3)
+
+    def run(self):
+        self.display.fill('black')
+        self.drawStuff()
+
         if self.resetButton.pressed:
-            with open('assets/stats/deaths.txt', 'w') as deaths:
-                deaths.writelines('0')
-            with open('assets/stats/passes.txt', 'w') as passes:
-                passes.writelines('0')
-            with open('assets/stats/time.txt', 'w') as timee:
-                timee.writelines('0')
-            time.sleep(0.3)
+            self.reset()
             return 'back'
 
         if self.returnButton.pressed:
