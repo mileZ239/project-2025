@@ -17,13 +17,13 @@ class Projectile:
 
         match self.facing:
             case 'North':
-                self.speedY = -4
+                self.speedY = -5
             case 'South':
-                self.speedY = 4
+                self.speedY = 5
             case 'West':
-                self.speedX = -4
+                self.speedX = -5
             case 'East':
-                self.speedX = 4
+                self.speedX = 5
             case _:
                 pass
 

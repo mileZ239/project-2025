@@ -47,25 +47,25 @@ class Player:
 
         # changing direction
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d] and self.facing != 'East':
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and self.facing != 'East':
             self.facing = 'East'
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
             self.speedX = 15
-        elif keys[pygame.K_a] and self.facing != 'West':
+        elif (keys[pygame.K_a] or keys[pygame.K_LEFT]) and self.facing != 'West':
             self.facing = 'West'
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
             self.speedX = -15
-        elif keys[pygame.K_w] and self.facing != 'North':
+        elif (keys[pygame.K_w] or keys[pygame.K_UP]) and self.facing != 'North':
             self.facing = 'North'
             self.ignoreX = self.x
             self.ignoreY = -239
             self.moving = True
             self.speedY = -15
-        elif keys[pygame.K_s] and self.facing != 'South':
+        elif (keys[pygame.K_s] or keys[pygame.K_DOWN]) and self.facing != 'South':
             self.facing = 'South'
             self.ignoreX = self.x
             self.ignoreY = -239

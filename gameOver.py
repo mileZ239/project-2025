@@ -1,5 +1,7 @@
 # imports
 import time
+import pygame
+
 from sounds import sounds
 from button import Button
 
@@ -29,7 +31,7 @@ class GameOver:
         self.label.draw()
 
         # checking whether any buttons are pressed and changing game state if needed
-        if self.restartButton.pressed:
+        if self.restartButton.pressed or (pygame.key.get_pressed()[pygame.K_SPACE]):
             self.gameStateManager.prevState()
             return self.gameStateManager.get_state()
         elif self.menuButton.pressed:
