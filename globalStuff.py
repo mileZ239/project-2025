@@ -7,6 +7,7 @@ class GlobalStuff:
         self.SCREEN_HEIGHT = 800
         self.FPS = 60
         self.display = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        pygame.display.set_caption('ПОТАЛ')
 
         self.globalTime = 0
 

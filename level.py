@@ -32,6 +32,7 @@ class Level:
         self.thorns = []
         self.portals = []
         self.cannons = []
+        self.pufferfish = []
         self.elements = []
 
     def parseElements(self):
@@ -48,6 +49,9 @@ class Level:
                 element.multiplier = self.settings.difficulty
                 self.cannons.append(element)
                 self.walls.append(element)
+            elif element.name == 'pufferfish':
+                element.multiplier = self.settings.difficulty
+                self.pufferfish.append(element)
             else:
                 pass
 
@@ -70,6 +74,10 @@ class Level:
     def drawCannons(self):
         for cannon in self.cannons:
             cannon.run()
+
+    def drawPufferfish(self):
+        for pufferfish in self.pufferfish:
+            pufferfish.run()
 
     def drawTimer(self):
         self.timerLabel.text = str(self.leftTime // 60 + 1)
@@ -111,6 +119,11 @@ class Level:
                 if self.player.rect.colliderect(projectile.rect):
                     self.gameOver()
 
+    def checkCollisionsPufferfish(self):
+        for pufferfish in self.pufferfish:
+            if not pufferfish.deflated and self.player.rect.colliderect(pufferfish.rect):
+                self.gameOver()
+
     def pause(self):
         self.paused = True
         self.gameStateManager.appendState('pause')
@@ -126,6 +139,7 @@ class Level:
         self.drawThorns()
         self.drawBats()
         self.drawCannons()
+        self.drawPufferfish()
         self.drawTimer()
 
     def checkCollisions(self):
@@ -136,6 +150,7 @@ class Level:
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
         self.checkCollisionsProjectiles()
+        self.checkCollisionsPufferfish()
 
     def runEverything(self):
         self.stats.updateTime(1)
