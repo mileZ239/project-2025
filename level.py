@@ -21,7 +21,7 @@ class Level:
         self.settings = Settings(display)
 
         # difficulty correction
-        self.leftTime = 60 * 20 // self.settings.difficulty
+        self.leftTime = 60 * 20000 // self.settings.difficulty
 
         self.paused = False
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
@@ -33,6 +33,7 @@ class Level:
         self.portals = []
         self.cannons = []
         self.pufferfish = []
+        self.stars = []
         self.elements = []
 
     def parseElements(self):
@@ -52,6 +53,9 @@ class Level:
             elif element.name == 'pufferfish':
                 element.multiplier = self.settings.difficulty
                 self.pufferfish.append(element)
+            elif element.name == 'star':
+                element.multiplier = self.settings.difficulty
+                self.stars.append(element)
             else:
                 pass
 
@@ -78,6 +82,10 @@ class Level:
     def drawPufferfish(self):
         for pufferfish in self.pufferfish:
             pufferfish.run()
+
+    def drawStars(self):
+        for star in self.stars:
+            star.run()
 
     def drawTimer(self):
         self.timerLabel.text = str(self.leftTime // 60 + 1)
@@ -124,6 +132,17 @@ class Level:
             if not pufferfish.deflated and self.player.rect.colliderect(pufferfish.rect):
                 self.gameOver()
 
+    def checkCollisionsStars(self):
+        delStars = []
+        for i in range(len(self.stars)):
+            star = self.stars[i]
+            if self.player.rect.colliderect(star.rect):
+                self.leftTime += star.addTime
+                delStars.append(i)
+                star.delete()
+        for i in delStars:
+            del self.stars[i]
+
     def pause(self):
         self.paused = True
         self.gameStateManager.appendState('pause')
@@ -140,6 +159,7 @@ class Level:
         self.drawBats()
         self.drawCannons()
         self.drawPufferfish()
+        self.drawStars()
         self.drawTimer()
 
     def checkCollisions(self):
@@ -151,6 +171,7 @@ class Level:
         self.checkCollisionsThorns()
         self.checkCollisionsProjectiles()
         self.checkCollisionsPufferfish()
+        self.checkCollisionsStars()
 
     def runEverything(self):
         self.stats.updateTime(1)

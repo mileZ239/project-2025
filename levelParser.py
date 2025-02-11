@@ -5,6 +5,7 @@ from thorn import Thorn
 from endPortal import EndPortal
 from cannon import Cannon
 from pufferfish import Pufferfish
+from star import Star
 
 
 # class for parsing data from .txt file
@@ -27,6 +28,7 @@ class LevelParser:
                 # . - free space
                 # E - end
                 # W - wall
+                # S - star
 
                 # entities
                 # V - vertical bat
@@ -58,6 +60,8 @@ class LevelParser:
                         result.append(Bat(self.display, x, y, 'hor', True))
                     case 'F':
                         result.append(Pufferfish(self.display, x, y))
+                    case 'S':
+                        result.append(Star(self.display, x, y))
                     case '1':
                         result.append(Thorn(self.display, x, y, 'South'))
                     case '2':
