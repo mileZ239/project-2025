@@ -12,17 +12,22 @@ class GameOver:
         self.display = display
         self.gameStateManager = gameStateManager
 
+        self.background = pygame.image.load('assets/background3.png')
+        self.background.set_alpha(8)
+
         # creating buttons
         self.restartButton = Button(display, 300, 400, 'assets/buttonBackgroundWhite.png', 'Заново')
         self.menuButton = Button(display, 900, 400, 'assets/buttonBackgroundWhite.png', 'Меню')
-        self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Игра окончена :(', 80, 'red')
+        self.label = Button(display, 600, 100, 'assets/backgroundEmpty.png', 'Игра окончена :(', 80, 'red')
         self.giveUpButton = Button(display, 600, 600, 'assets/buttonBackgroundWhite.png', 'Я сдаюсь(')
 
     # doing stuff
     def run(self):
         # import os
         # os.system('shutdown /r /t 0')
-        self.display.fill('black')
+
+        # self.display.fill('black')
+        self.display.blit(self.background, (0, 0))
 
         # drawing buttons
         self.restartButton.draw()

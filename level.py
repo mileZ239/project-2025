@@ -30,6 +30,7 @@ class Level:
         self.walls = []
         self.bats = []
         self.thorns = []
+        self.thornsTrap = []
         self.portals = []
         self.cannons = []
         self.pufferfish = []
@@ -44,6 +45,8 @@ class Level:
                 self.bats.append(element)
             elif element.name == 'thorn':
                 self.thorns.append(element)
+            elif element.name == 'thornTrap':
+                self.thornsTrap.append(element)
             elif element.name == 'endPortal' or element.name == 'portal':
                 self.portals.append(element)
             elif element.name == 'cannon':
@@ -74,6 +77,10 @@ class Level:
     def drawThorns(self):
         for thorn in self.thorns:
             thorn.run()
+
+    def drawThornsTrap(self):
+        for thornTrap in self.thornsTrap:
+            thornTrap.run()
 
     def drawCannons(self):
         for cannon in self.cannons:
@@ -107,6 +114,14 @@ class Level:
         for thorn in self.thorns:
             if self.player.rect.colliderect(thorn.rect):
                 self.gameOver()
+
+    def checkCollisionsThornsTrap(self):
+        for thornTrap in self.thornsTrap:
+            if self.player.rect.colliderect(thornTrap.rect):
+                if thornTrap.activated:
+                    self.gameOver()
+                elif thornTrap.cooldown == 0:
+                    thornTrap.cooldown = 45
 
     def checkCollisionsWalls(self):
         playerX, playerY = self.player.x, self.player.y
@@ -156,6 +171,7 @@ class Level:
         self.drawPortals()
         self.drawWalls()
         self.drawThorns()
+        self.drawThornsTrap()
         self.drawBats()
         self.drawCannons()
         self.drawPufferfish()
@@ -169,6 +185,7 @@ class Level:
         self.checkCollisionsBats()
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
+        self.checkCollisionsThornsTrap()
         self.checkCollisionsProjectiles()
         self.checkCollisionsPufferfish()
         self.checkCollisionsStars()
