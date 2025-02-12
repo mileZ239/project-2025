@@ -21,7 +21,7 @@ class Level:
         self.settings = Settings(display)
 
         # difficulty correction
-        self.leftTime = 60 * 20000 // self.settings.difficulty
+        self.leftTime = 60 * 30 // self.settings.difficulty
 
         self.paused = False
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))

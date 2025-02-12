@@ -15,7 +15,7 @@ class Star:
         # difficulty correction
         self.multiplier = 1
 
-        self.addTime = 60 * 5 // self.multiplier
+        self.addTime = 60 * 6 // self.multiplier
 
     def delete(self):
         self.x = -239
