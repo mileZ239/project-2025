@@ -27,6 +27,7 @@ class Records:
         self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей (анлак): ' + str(self.deaths))
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
         self.resetButton = Button(display, 600, 700, 'assets/buttonBackgroundWhite.png', 'Сбросить статистику')
+        self.rightButton = Button(display, 1140, 700, 'assets/rightArrow.png')
 
     def drawStuff(self):
         self.label.draw()
@@ -35,6 +36,7 @@ class Records:
         self.allDeathsLabel.draw()
         self.returnButton.draw()
         self.resetButton.draw()
+        self.rightButton.draw()
 
     def reset(self):
         with open('assets/stats/deaths.txt', 'w') as deaths:
@@ -46,6 +48,11 @@ class Records:
         with open('assets/stats/time.txt', 'w') as timee:
             timee.writelines('0')
             timee.close()
+
+        for levelNumber in range(2):
+            with open('assets/stats/levels/' + str(levelNumber) + '.txt', 'w') as levelStats:
+                levelStats.writelines('10000000\n' + '10000000\n')
+                levelStats.close()
 
         time.sleep(0.3)
 
@@ -59,4 +66,8 @@ class Records:
 
         if self.returnButton.pressed:
             time.sleep(0.3)
-            return 'back'
+            return 'menu'
+
+        if self.rightButton.pressed:
+            time.sleep(0.3)
+            return 'bestLevelTime'

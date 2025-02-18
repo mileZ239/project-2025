@@ -1,0 +1,11 @@
+Нужен python 3.10 и выше
+
+В Pyсharm установить интерпретатор (локальный)
+
+В терминале:
+py -m ensurepip --upgrade
+py -m pip install --upgrade setuptools
+py -m pip install --upgrade pip
+pip install pygame
+
+Основной файл - main.py

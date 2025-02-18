@@ -23,6 +23,9 @@ class Level:
         # difficulty correction
         self.leftTime = 60 * 30 // self.settings.difficulty
 
+        self.lastedTime = 0
+        self.collectedStars = 0
+
         self.paused = False
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
         self.name = 'level'
@@ -153,6 +156,7 @@ class Level:
             star = self.stars[i]
             if self.player.rect.colliderect(star.rect):
                 self.leftTime += star.addTime
+                self.collectedStars += 1
                 delStars.append(i)
                 star.delete()
         for i in delStars:
@@ -197,6 +201,8 @@ class Level:
         if self.leftTime <= 0:
             self.gameOver()
 
+        self.lastedTime += 1
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             return 'pause'
@@ -208,4 +214,13 @@ class Level:
         self.player.run()
 
         if collisionResult is not None:
+            with open('assets/stats/levels/' + self.name[-1] + '.txt', 'r') as levelStats:
+                data = levelStats.readlines()
+                currentMinTime = int(data[0])
+                currentMaxStars = int(data[1])
+                levelStats.close()
+            with open('assets/stats/levels/' + self.name[-1] + '.txt', 'w') as levelStats:
+                levelStats.writelines(str(min(currentMinTime, self.lastedTime)) + '\n')
+                levelStats.writelines(str(max(currentMaxStars, self.collectedStars)) + '\n')
+                levelStats.close()
             return collisionResult

@@ -9,6 +9,7 @@ from sounds import sounds
 from settings import Settings
 from pause import Pause
 from records import Records
+from bestLevelTime import BestLevelTime
 from globalStuff import globalStuff
 from stats import Stats
 from level0 import Level0
@@ -34,6 +35,7 @@ class Game:
         self.settings = Settings(globalStuff.display)
         self.pause = Pause(globalStuff.display, self.gameStateManager)
         self.records = Records(globalStuff.display)
+        self.bestLevelTime = BestLevelTime(globalStuff.display)
         self.stats = Stats()
 
         # levels
@@ -48,6 +50,7 @@ class Game:
                        'settings': self.settings,
                        'pause': self.pause,
                        'records': self.records,
+                       'bestLevelTime': self.bestLevelTime,
                        'level0': self.level0,
                        'level1': self.level1}
 
@@ -76,6 +79,9 @@ class Game:
                 case 'records':
                     self.states['records'] = Records(globalStuff.display)
                     self.gameStateManager.appendState('records')
+                case 'bestLevelTime':
+                    self.states['bestLevelTime'] = BestLevelTime(globalStuff.display)
+                    self.gameStateManager.appendState('bestLevelTime')
                 case 'pause':
                     self.gameStateManager.appendState('pause')
                 case 'back':
