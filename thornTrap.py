@@ -12,8 +12,8 @@ class ThornTrap:
         self.activated = False
 
         self.facing = direction
-        self.sprite = pygame.image.load('assets/backgroundEmpty.png')
-        self.spriteInactivated = pygame.image.load('assets/backgroundEmpty.png')
+        self.sprite = pygame.image.load('assets/thornsTrapOff.png')
+        self.spriteInactivated = pygame.image.load('assets/thornsTrapOff.png')
         self.spriteActivated = pygame.image.load('assets/thornsTrap' + direction + '.png')
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'thornTrap'

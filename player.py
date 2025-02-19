@@ -28,6 +28,7 @@ class Player:
         # speed and moving state
         self.speedX = 0
         self.speedY = 0
+        self.speed = 15
         self.moving = False
         self.facing = 'Start'
 
@@ -52,25 +53,25 @@ class Player:
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
-            self.speedX = 15
+            self.speedX = self.speed
         elif (keys[pygame.K_a] or keys[pygame.K_LEFT]) and self.facing != 'West':
             self.facing = 'West'
             self.ignoreX = -239
             self.ignoreY = self.y
             self.moving = True
-            self.speedX = -15
+            self.speedX = -self.speed
         elif (keys[pygame.K_w] or keys[pygame.K_UP]) and self.facing != 'North':
             self.facing = 'North'
             self.ignoreX = self.x
             self.ignoreY = -239
             self.moving = True
-            self.speedY = -15
+            self.speedY = -self.speed
         elif (keys[pygame.K_s] or keys[pygame.K_DOWN]) and self.facing != 'South':
             self.facing = 'South'
             self.ignoreX = self.x
             self.ignoreY = -239
             self.moving = True
-            self.speedY = 15
+            self.speedY = self.speed
         else:
             self.moving = False
             self.ignoreX = -239
