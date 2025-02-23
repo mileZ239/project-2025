@@ -21,7 +21,14 @@ class Level:
         self.settings = Settings(display)
 
         # difficulty correction
-        self.leftTime = 60 * 30 // self.settings.difficulty
+        match self.settings.difficulty:
+            case 0:
+                self.difficulty = 0.001
+            case 1:
+                self.difficulty = 1
+            case 2:
+                self.difficulty = 2
+        self.leftTime = 60 * 30 // self.difficulty
 
         self.lastedTime = 0
         self.collectedStars = 0
@@ -53,14 +60,15 @@ class Level:
             elif element.name == 'endPortal' or element.name == 'portal':
                 self.portals.append(element)
             elif element.name == 'cannon':
-                element.multiplier = self.settings.difficulty
+                element.multiplier = self.difficulty
+                element.cooldown /= element.multiplier
                 self.cannons.append(element)
                 self.walls.append(element)
             elif element.name == 'pufferfish':
-                element.multiplier = self.settings.difficulty
+                element.multiplier = self.difficulty
+                element.cooldown /= element.multiplier
                 self.pufferfish.append(element)
             elif element.name == 'star':
-                element.multiplier = self.settings.difficulty
                 self.stars.append(element)
             else:
                 pass
@@ -98,7 +106,7 @@ class Level:
             star.run()
 
     def drawTimer(self):
-        self.timerLabel.text = str(self.leftTime // 60 + 1)
+        self.timerLabel.text = str(round(self.leftTime / 60, 1))
         self.timerLabel.draw()
 
     def checkCollisionsPortals(self):

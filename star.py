@@ -12,10 +12,7 @@ class Star:
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'star'
 
-        # difficulty correction
-        self.multiplier = 1
-
-        self.addTime = 60 * 6 // self.multiplier
+        self.addTime = 60 * 6
 
     def delete(self):
         self.x = -239
