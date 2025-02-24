@@ -44,9 +44,9 @@ class LevelParser:
 
                 # thorns trap
                 # u - up thorns trap
-                # r - right thorns
-                # d - down thorns
-                # l - left thorns
+                # r - right thorns trap
+                # d - down thorns trap
+                # l - left thorns trap
 
                 # cannons
                 # 5 - up cannon

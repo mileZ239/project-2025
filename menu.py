@@ -32,7 +32,7 @@ class Menu:
         if self.startButton.pressed:
             time.sleep(0.3)
             # updating game state
-            return 'level0'
+            return 'chooseLevel'
         elif self.settingsButton.pressed:
             time.sleep(0.3)
             return 'settings'

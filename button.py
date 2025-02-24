@@ -34,7 +34,7 @@ class Button:
         # checking whether button is pressed or not
         if self.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
             self.pressed = True
-            print("Button", self.text, "is pressed")
+            # print("Button", self.text, "is pressed")
         else:
             self.pressed = False
 

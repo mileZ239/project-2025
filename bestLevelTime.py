@@ -18,9 +18,9 @@ class BestLevelTime:
                 levelStats.close()
             self.levelsTime.append(timee)
 
-            text = 'Уровень ' + str(levelNumber) + ':          ' + str(timee) + ' с'
+            text = 'Уровень ' + str(levelNumber + 1) + ':          ' + str(timee) + ' с'
             if timee >= 10000:
-                text = 'Уровень ' + str(levelNumber) + ':          ' + 'не пройден :)'
+                text = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :)'
             self.levelsLabels.append(Button(display, 600, 300 + 70 * levelNumber, 'assets/buttonBackgroundBlack.png', text))
 
     def drawStuff(self):

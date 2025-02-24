@@ -10,6 +10,7 @@ from settings import Settings
 from pause import Pause
 from records import Records
 from bestLevelTime import BestLevelTime
+from chooseLevel import ChooseLevel
 from globalStuff import globalStuff
 from stats import Stats
 from level0 import Level0
@@ -36,6 +37,7 @@ class Game:
         self.pause = Pause(globalStuff.display, self.gameStateManager)
         self.records = Records(globalStuff.display)
         self.bestLevelTime = BestLevelTime(globalStuff.display)
+        self.chooseLevel = ChooseLevel(globalStuff.display)
         self.stats = Stats()
 
         # levels
@@ -51,8 +53,10 @@ class Game:
                        'pause': self.pause,
                        'records': self.records,
                        'bestLevelTime': self.bestLevelTime,
+                       'chooseLevel': self.chooseLevel,
                        'level0': self.level0,
-                       'level1': self.level1}
+                       'level1': self.level1
+                       }
 
     # main function
     def run(self):
@@ -82,11 +86,14 @@ class Game:
                 case 'bestLevelTime':
                     self.states['bestLevelTime'] = BestLevelTime(globalStuff.display)
                     self.gameStateManager.appendState('bestLevelTime')
+                case 'chooseLevel':
+                    self.states['chooseLevel'] = ChooseLevel(globalStuff.display)
+                    self.gameStateManager.appendState('chooseLevel')
                 case 'pause':
                     self.gameStateManager.appendState('pause')
                 case 'back':
                     self.gameStateManager.prevState()
-                case _:             # level
+                case _:  # level
                     sounds.play('stop')
                     self.gameStateManager.appendState(result)
                     time.sleep(0.07)
