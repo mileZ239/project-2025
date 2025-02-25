@@ -24,10 +24,13 @@ class Level:
         match self.settings.difficulty:
             case 0:
                 self.difficulty = 0.001
+                self.difficultyName = 'explorer'
             case 1:
                 self.difficulty = 1
+                self.difficultyName = 'easy'
             case 2:
                 self.difficulty = 2
+                self.difficultyName = 'hard'
         self.leftTime = 60 * 30 // self.difficulty
 
         self.lastedTime = 0
@@ -222,12 +225,12 @@ class Level:
         self.player.run()
 
         if collisionResult is not None:
-            with open('assets/stats/levels/' + self.name[-1] + '.txt', 'r') as levelStats:
+            with open('assets/stats/levels/' + self.difficultyName + '/' + self.name[-1] + '.txt', 'r') as levelStats:
                 data = levelStats.readlines()
                 currentMinTime = int(data[0])
                 currentMaxStars = int(data[1])
                 levelStats.close()
-            with open('assets/stats/levels/' + self.name[-1] + '.txt', 'w') as levelStats:
+            with open('assets/stats/levels/' + self.difficultyName + '/' + self.name[-1] + '.txt', 'w') as levelStats:
                 levelStats.writelines(str(min(currentMinTime, self.lastedTime)) + '\n')
                 levelStats.writelines(str(max(currentMaxStars, self.collectedStars)) + '\n')
                 levelStats.close()

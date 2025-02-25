@@ -42,15 +42,16 @@ class Settings:
                 with open('assets/settings/settings.txt', 'w') as settings:
                     settings.writelines(str(self.difficulty))
 
-        if self.difficulty == 0:
-            self.explorerDifficultyButton.draw()
-            self.explorerDifficultyLabel.draw()
-        elif self.difficulty == 1:
-            self.easyDifficultyButton.draw()
-            self.easyDifficultyLabel.draw()
-        elif self.difficulty == 2:
-            self.hardDifficultyButton.draw()
-            self.hardDifficultyLabel.draw()
+        match self.difficulty:
+            case 0:
+                self.explorerDifficultyButton.draw()
+                self.explorerDifficultyLabel.draw()
+            case 1:
+                self.easyDifficultyButton.draw()
+                self.easyDifficultyLabel.draw()
+            case 2:
+                self.hardDifficultyButton.draw()
+                self.hardDifficultyLabel.draw()
 
         if self.returnButton.pressed:
             time.sleep(0.3)
