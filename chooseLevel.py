@@ -27,17 +27,11 @@ class ChooseLevel:
         self.difficulty = int(float(open('assets/settings/settings.txt', 'r').readlines()[0]))
         self.buttons = []
         for i in range(2):
-            match self.levelsStars[i][self.difficulty]:
-                case -1:
-                    self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)}', 35))
-                case 0:
-                    self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)} (0)', 35))
-                case 1:
-                    self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)} (1)', 35))
-                case 2:
-                    self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)} (2)', 35))
-                case 3:
-                    self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)} (3)', 35))
+            stars = self.levelsStars[i][self.difficulty]
+            if stars == -1:
+                self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)}', 35))
+            else:
+                self.buttons.append(Button(display, 400, 250 + i * 150, f'assets/levelCompleted{stars}.png', f'Уровень {str(i + 1)}', 35))
 
         for i in range(2, 5):
             self.buttons.append(Button(display, 400, 250 + i * 150, 'assets/levelNotCompleted.png', f'Уровень {str(i + 1)}', 35))

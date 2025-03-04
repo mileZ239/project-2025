@@ -21,6 +21,8 @@ class Records:
             self.avgDeaths = round(self.deaths / self.passes, 2)
             self.avgTime = round(self.time / self.passes, 2)
 
+        self.levelsCount = 2
+
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Статистика', 80)
         self.avgDeathsLabel = Button(display, 600, 300, 'assets/buttonBackgroundBlack.png', 'В среднем смертей на уровень: ' + str(self.avgDeaths))
         self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime) + ' с')
@@ -49,8 +51,19 @@ class Records:
             timee.writelines('0')
             timee.close()
 
-        for levelNumber in range(2):
-            with open('assets/stats/levels/' + str(levelNumber) + '.txt', 'w') as levelStats:
+        for i in range(self.levelsCount):
+            with open(f'assets/stats/levels/explorer/{i}.txt', 'w') as levelStats:
+                levelStats.writelines('10000000\n' + '-1\n')
+                levelStats.close()
+            with open(f'assets/stats/levels/easy/{i}.txt', 'w') as levelStats:
+                levelStats.writelines('10000000\n' + '-1\n')
+                levelStats.close()
+            with open(f'assets/stats/levels/hard/{i}.txt', 'w') as levelStats:
+                levelStats.writelines('10000000\n' + '-1\n')
+                levelStats.close()
+
+        for i in range(self.levelsCount):
+            with open(f'assets/stats/levels/{i}.txt', 'w') as levelStats:
                 levelStats.writelines('10000000\n' + '10000000\n')
                 levelStats.close()
 

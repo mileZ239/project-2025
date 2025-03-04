@@ -30,6 +30,6 @@ class Cannon:
         self.cooldown -= 1
         if self.cooldown <= 0:
             self.projectiles.append(Projectile(self.display, self.x, self.y, self.facing))
-            self.cooldown = random.randint(180, 240) // self.multiplier
+            self.cooldown = random.randint(210, 270) // self.multiplier
         self.updateProjectiles()
         self.display.blit(self.sprite, self.rect)
