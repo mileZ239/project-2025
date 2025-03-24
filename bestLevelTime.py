@@ -18,7 +18,7 @@ class BestLevelTime:
         self.changedDifficulty = 0
         self.difficulty = 0
 
-        self.levelsCount = 2
+        self.levelsCount = 8
 
         self.levelsTime = []
         self.levelsLabels = []

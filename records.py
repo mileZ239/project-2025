@@ -21,7 +21,7 @@ class Records:
             self.avgDeaths = round(self.deaths / self.passes, 2)
             self.avgTime = round(self.time / self.passes, 2)
 
-        self.levelsCount = 2
+        self.levelsCount = 8
 
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Статистика', 80)
         self.avgDeathsLabel = Button(display, 600, 300, 'assets/buttonBackgroundBlack.png', 'В среднем смертей на уровень: ' + str(self.avgDeaths))

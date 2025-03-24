@@ -13,8 +13,15 @@ from bestLevelTime import BestLevelTime
 from chooseLevel import ChooseLevel
 from globalStuff import globalStuff
 from stats import Stats
+
 from level0 import Level0
 from level1 import Level1
+from level2 import Level2
+from level3 import Level3
+from level4 import Level4
+from level5 import Level5
+from level6 import Level6
+from level7 import Level7
 
 
 # main class
@@ -41,10 +48,14 @@ class Game:
         self.stats = Stats()
 
         # levels
-        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'),
-                             self.stats)
-        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'),
-                             self.stats)
+        self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level2 = Level2(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level3 = Level3(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level4 = Level4(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level5 = Level5(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level6 = Level6(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+        self.level7 = Level7(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
 
         # creating a dictionary for our game states
         self.states = {'menu': self.menu,
@@ -55,7 +66,13 @@ class Game:
                        'bestLevelTime': self.bestLevelTime,
                        'chooseLevel': self.chooseLevel,
                        'level0': self.level0,
-                       'level1': self.level1
+                       'level1': self.level1,
+                       'level2': self.level2,
+                       'level3': self.level3,
+                       'level4': self.level4,
+                       'level5': self.level5,
+                       'level6': self.level6,
+                       'level7': self.level7,
                        }
 
     # main function
@@ -100,11 +117,22 @@ class Game:
                     if result != 'level0':
                         self.stats.updatePasses(1)
                     if result == 'level0':
-                        self.states[result] = Level0(globalStuff.display, self.gameStateManager,
-                                                     pygame.image.load('assets/background.png'), self.stats)
+                        self.states[result] = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
                     elif result == 'level1':
-                        self.states[result] = Level1(globalStuff.display, self.gameStateManager,
-                                                     pygame.image.load('assets/background.png'), self.stats)
+                        self.states[result] = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level2':
+                        self.states[result] = Level2(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level3':
+                        self.states[result] = Level3(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level4':
+                        self.states[result] = Level4(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level5':
+                        self.states[result] = Level5(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level6':
+                        self.states[result] = Level6(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+                    elif result == 'level7':
+                        self.states[result] = Level7(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
+
                     else:
                         self.gameStateManager.appendState('menu')
 
