@@ -52,7 +52,7 @@ class Level:
 
     def parseElements(self):
         for element in self.elements:
-            if element.name == 'wall':
+            if element.name == 'wall' or element.name == 'semiWall':
                 self.walls.append(element)
             elif element.name == 'bat':
                 self.bats.append(element)
@@ -151,10 +151,17 @@ class Level:
                 continue
 
     def checkCollisionsProjectiles(self):
-        for cannons in self.cannons:
-            for projectile in cannons.projectiles:
+        for cannon in self.cannons:
+            removed = []
+            for projectile in cannon.projectiles:
                 if self.player.rect.colliderect(projectile.rect):
                     self.gameOver()
+                for wall in self.walls:
+                    if wall.name == 'wall' and wall.rect.colliderect(projectile.rect):
+                        removed.append(projectile)
+                        break
+            for projectile in removed:
+                cannon.projectiles.remove(projectile)
 
     def checkCollisionsPufferfish(self):
         for pufferfish in self.pufferfish:

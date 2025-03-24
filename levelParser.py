@@ -1,5 +1,6 @@
 # imports
 from wall import Wall
+from semiWall import SemiWall
 from bat import Bat
 from thorn import Thorn
 from thornTrap import ThornTrap
@@ -29,6 +30,7 @@ class LevelParser:
                 # . - free space
                 # E - end
                 # W - wall
+                # w - semi wall
                 # S - star
 
                 # entities
@@ -61,6 +63,8 @@ class LevelParser:
                         result.append(EndPortal(self.display, x, y))
                     case 'W':
                         result.append(Wall(self.display, x, y))
+                    case 'w':
+                        result.append(SemiWall(self.display, x, y))
                     case 'S':
                         result.append(Star(self.display, x, y))
 
