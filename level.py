@@ -5,6 +5,7 @@ from player import Player
 from button import Button
 from sounds import sounds
 from settings import Settings
+from globalStuff import globalStuff
 
 
 # level class
@@ -38,7 +39,15 @@ class Level:
 
         self.paused = False
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
+        self.invincibilityLabel = Button(display, 1100, 20, 'assets/backgroundEmpty.png', 'Неуязвимость', 35, pygame.Color(220, 220, 220))
+        self.slowLabel = Button(display, 1100, 50, 'assets/backgroundEmpty.png', 'Замедление', 35, pygame.Color(52, 204, 255))
         self.name = 'level'
+
+        # slowing time ability
+        self.slow = False
+        self.slowCount = 2
+        self.slowTime = 60 / 2 * 2
+        self.slowLeft = 0
 
         self.walls = []
         self.bats = []
@@ -111,6 +120,12 @@ class Level:
     def drawTimer(self):
         self.timerLabel.text = str(round(self.leftTime / 60, 1))
         self.timerLabel.draw()
+
+    def drawEffects(self):
+        if self.player.invincible:
+            self.invincibilityLabel.draw()
+        if self.slow:
+            self.slowLabel.draw()
 
     def checkCollisionsPortals(self):
         for portal in self.portals:
@@ -185,6 +200,7 @@ class Level:
         self.gameStateManager.appendState('pause')
 
     def gameOver(self):
+        globalStuff.FPS = 60
         self.stats.updateDeaths(1)
         sounds.play('gameOver')
         self.gameStateManager.appendState('gameOver')
@@ -199,18 +215,25 @@ class Level:
         self.drawPufferfish()
         self.drawStars()
         self.drawTimer()
+        self.drawEffects()
 
     def checkCollisions(self):
         endPortalCollision = self.checkCollisionsPortals()
         if endPortalCollision is not None:
             return endPortalCollision
-        self.checkCollisionsBats()
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
-        self.checkCollisionsThornsTrap()
-        self.checkCollisionsProjectiles()
-        self.checkCollisionsPufferfish()
         self.checkCollisionsStars()
+        if not self.player.invincible:
+            self.checkCollisionsBats()
+            self.checkCollisionsThornsTrap()
+            self.checkCollisionsProjectiles()
+            self.checkCollisionsPufferfish()
+        else:
+            self.player.invincibilityLeft -= 1
+            if self.player.invincibilityLeft == 0:
+                self.player.invincible = False
+                print("Not invincible")
 
     def runEverything(self):
         self.stats.updateTime(1)
@@ -221,9 +244,23 @@ class Level:
 
         self.lastedTime += 1
 
+        if self.slow:
+            self.slowLeft -= 1
+        if self.slow and self.slowLeft == 0:
+            globalStuff.FPS *= 2
+            self.player.speed /= 2
+            self.slow = False
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             return 'pause'
+        if keys[pygame.K_c] and not self.slow and self.slowCount:
+            globalStuff.FPS /= 2
+            self.player.speed *= 2
+            self.slow = True
+            self.slowLeft = self.slowTime
+            self.slowCount -= 1
+
         self.display.blit(self.background, (0, 0))
 
         self.drawStuff()
@@ -232,6 +269,7 @@ class Level:
         self.player.run()
 
         if collisionResult is not None:
+            globalStuff.FPS = 60
             with open('assets/stats/levels/' + self.difficultyName + '/' + self.name[-1] + '.txt', 'r') as levelStats:
                 data = levelStats.readlines()
                 currentMinTime = int(data[0])

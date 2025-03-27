@@ -25,6 +25,12 @@ class Player:
         self.ignoreX = -239
         self.ignoreY = -239
 
+        # invincibility ability
+        self.invincible = False
+        self.invincibilityCount = 1
+        self.invincibilityTime = 60 * 1.5
+        self.invincibilityLeft = 0
+
         # speed and moving state
         self.speedX = 0
         self.speedY = 0
@@ -40,14 +46,22 @@ class Player:
         self.x += self.speedX
         self.y += self.speedY
 
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_f] and not self.invincible and self.invincibilityCount:
+            self.invincible = True
+            self.invincibilityCount -= 1
+            self.invincibilityLeft = self.invincibilityTime
+            print("Invincible")
+
         # changing sprite
         if self.moving:
             self.currentSprite = self.spriteMoving
             return
+
         self.currentSprite = self.sprites[self.facing]
 
         # changing direction
-        keys = pygame.key.get_pressed()
         if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and self.facing != 'East':
             self.facing = 'East'
             self.ignoreX = -239
