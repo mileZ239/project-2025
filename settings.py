@@ -7,7 +7,7 @@ class Settings:
     def __init__(self, display):
         self.display = display
 
-        self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Настройки', 80)
+        self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Настройки и управление', 80)
         self.difficultyLabel = Button(display, 350, 300, 'assets/buttonBackgroundBlack.png', 'Сложность', 60)
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
 
@@ -22,6 +22,12 @@ class Settings:
         self.difficultyButtons = [self.explorerDifficultyButton, self.easyDifficultyButton, self.hardDifficultyButton]
         self.changedDifficulty = 0
 
+        self.controlsText = []
+        self.controlsText.append(Button(display, 600, 500, 'assets/backgroundEmpty.png', 'WASD/стрелки - передвижение', 46))
+        self.controlsText.append(Button(display, 600, 575, 'assets/backgroundEmpty.png', 'C - замедление времени (2 раза за уровень)', 46))
+        self.controlsText.append(Button(display, 600, 650, 'assets/backgroundEmpty.png', 'V - неуязвимость (1 раз за уровень)', 46))
+        self.controlsText.append(Button(display, 600, 725, 'assets/backgroundEmpty.png', 'Esc - пауза, Пробел - выход из паузы/начать уровень заново', 46))
+
         self.settingsData = open('assets/settings/settings.txt', 'r').readlines()
         self.difficulty = float(self.settingsData[0])
 
@@ -31,6 +37,10 @@ class Settings:
         self.label.draw()
         self.difficultyLabel.draw()
         self.returnButton.draw()
+
+        for text in self.controlsText:
+            text.draw()
+
 
         self.changedDifficulty -= 1
         for button in self.difficultyButtons:

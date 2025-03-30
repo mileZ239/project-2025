@@ -9,8 +9,8 @@ class Level4(Level):
         super().__init__(display, gameStateManager, background, stats)
 
         # player starting position
-        self.player.x = 30
-        self.player.y = 30
+        self.player.x = 30 * 2
+        self.player.y = 30 * 1
 
         # walls and entities
         self.elements = LevelParser(display, 'assets/levels/4.txt').parse()

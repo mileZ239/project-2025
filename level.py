@@ -32,7 +32,7 @@ class Level:
             case 2:
                 self.difficulty = 2
                 self.difficultyName = 'hard'
-        self.leftTime = 60 * 30 // self.difficulty
+        self.leftTime = 60 * 90 // self.difficulty
 
         self.lastedTime = 0
         self.collectedStars = 0
@@ -135,6 +135,8 @@ class Level:
                     return nextLevel
 
     def checkCollisionsBats(self):
+        if self.player.invincible:
+            return
         for bat in self.bats:
             if self.player.rect.colliderect(bat.rect):
                 self.gameOver()
@@ -145,6 +147,8 @@ class Level:
                 self.gameOver()
 
     def checkCollisionsThornsTrap(self):
+        if self.player.invincible:
+            return
         for thornTrap in self.thornsTrap:
             if self.player.rect.colliderect(thornTrap.rect):
                 if thornTrap.activated:
@@ -169,7 +173,7 @@ class Level:
         for cannon in self.cannons:
             removed = []
             for projectile in cannon.projectiles:
-                if self.player.rect.colliderect(projectile.rect):
+                if not self.player.invincible and self.player.rect.colliderect(projectile.rect):
                     self.gameOver()
                 for wall in self.walls:
                     if wall.name == 'wall' and wall.rect.colliderect(projectile.rect):
@@ -179,6 +183,8 @@ class Level:
                 cannon.projectiles.remove(projectile)
 
     def checkCollisionsPufferfish(self):
+        if self.player.invincible:
+            return
         for pufferfish in self.pufferfish:
             if not pufferfish.deflated and self.player.rect.colliderect(pufferfish.rect):
                 self.gameOver()
@@ -224,16 +230,15 @@ class Level:
         self.checkCollisionsWalls()
         self.checkCollisionsThorns()
         self.checkCollisionsStars()
-        if not self.player.invincible:
-            self.checkCollisionsBats()
-            self.checkCollisionsThornsTrap()
-            self.checkCollisionsProjectiles()
-            self.checkCollisionsPufferfish()
-        else:
+        self.checkCollisionsProjectiles()
+        self.checkCollisionsBats()
+        self.checkCollisionsThornsTrap()
+        self.checkCollisionsPufferfish()
+        if self.player.invincible:
             self.player.invincibilityLeft -= 1
             if self.player.invincibilityLeft == 0:
                 self.player.invincible = False
-                print("Not invincible")
+                # print("Not invincible")
 
     def runEverything(self):
         self.stats.updateTime(1)

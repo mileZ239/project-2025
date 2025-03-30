@@ -10,10 +10,11 @@ class BestLevelTime:
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
         self.leftButton = Button(display, 1140, 700, 'assets/leftArrow.png')
 
-        self.explorerDifficultyButton = Button(display, 1000, 300, 'assets/explorerDifficulty.png')
-        self.easyDifficultyButton = Button(display, 1000, 300, 'assets/easyDifficulty.png')
-        self.hardDifficultyButton = Button(display, 1000, 300, 'assets/hardDifficulty.png')
+        self.explorerDifficultyButton = Button(display, 1100, 200, 'assets/explorerDifficulty.png')
+        self.easyDifficultyButton = Button(display, 1100, 200, 'assets/easyDifficulty.png')
+        self.hardDifficultyButton = Button(display, 1100, 200, 'assets/hardDifficulty.png')
 
+        self.difficultyLabel = Button(display, 900, 200, 'assets/backgroundEmpty.png', 'Сложность: ')
         self.difficultyButtons = [self.explorerDifficultyButton, self.easyDifficultyButton, self.hardDifficultyButton]
         self.changedDifficulty = 0
         self.difficulty = 0
@@ -36,27 +37,36 @@ class BestLevelTime:
 
             self.currentText = []
 
+            textX, textY = 300 + (levelNumber // 4) * 500, (levelNumber % 4) * 80 + 300
+
             textExplorer = 'Уровень ' + str(levelNumber + 1) + ':          ' + str(timeExplorer) + ' с'
             if timeExplorer >= 10000:
-                textExplorer = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :)'
-            self.currentText.append(Button(display, 600, 300 + 70 * levelNumber, 'assets/buttonBackgroundBlack.png', textExplorer))
+                textExplorer = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :('
+            self.currentText.append(Button(display, textX, textY, 'assets/buttonBackgroundBlack.png', textExplorer, 45))
 
             textEasy = 'Уровень ' + str(levelNumber + 1) + ':          ' + str(timeEasy) + ' с'
             if timeEasy >= 10000:
-                textEasy = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :)'
-            self.currentText.append(Button(display, 600, 300 + 70 * levelNumber, 'assets/buttonBackgroundBlack.png', textEasy))
+                textEasy = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :('
+            self.currentText.append(Button(display, textX, textY, 'assets/buttonBackgroundBlack.png', textEasy, 45))
 
             textHard = 'Уровень ' + str(levelNumber + 1) + ':          ' + str(timeHard) + ' с'
             if timeHard >= 10000:
-                textHard = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :)'
-            self.currentText.append(Button(display, 600, 300 + 70 * levelNumber, 'assets/buttonBackgroundBlack.png', textHard))
+                textHard = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :('
+            self.currentText.append(Button(display, textX, textY, 'assets/buttonBackgroundBlack.png', textHard, 45))
 
             self.levelsLabels.append(self.currentText)
 
     def drawStuff(self):
+        if self.difficulty == 0:
+            self.label.textColor = (178, 194, 255)
+        elif self.difficulty == 1:
+            self.label.textColor = (163, 73, 164)
+        elif self.difficulty == 2:
+            self.label.textColor = (163, 0, 78)
         self.label.draw()
         self.returnButton.draw()
         self.leftButton.draw()
+        self.difficultyLabel.draw()
 
         match self.difficulty:
             case 0:

@@ -9,13 +9,13 @@ class Sounds:
 
     def play(self, sound):
         match sound:
-            case 'gameOver':
-                self.gameOver.play()
-            case 'giveUp':
-                self.giveUp.play()
-            case 'stop':
-                self.gameOver.stop()
-                self.giveUp.stop()
+            # case 'gameOver':
+            #     self.gameOver.play()
+            # case 'giveUp':
+            #     self.giveUp.play()
+            # case 'stop':
+            #     self.gameOver.stop()
+            #     self.giveUp.stop()
             case _:
                 pass
 

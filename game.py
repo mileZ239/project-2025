@@ -1,7 +1,7 @@
 import sys
 import time
-
 import pygame
+
 from gameStateManager import GameStateManager
 from menu import Menu
 from gameOver import GameOver
@@ -87,12 +87,14 @@ class Game:
                     sys.exit()
 
             # running stuff at current state
-            result = self.states[self.gameStateManager.get_state()].run()
+            currentState = self.states[self.gameStateManager.get_state()]
+            result = currentState.run()
             match result:
                 case None:
                     pass
                 case 'menu':
                     sounds.play('stop')
+                    self.states['menu'] = Menu(globalStuff.display)
                     self.gameStateManager.set_state('menu')
                 case 'settings':
                     sounds.play('stop')
@@ -110,6 +112,8 @@ class Game:
                     self.gameStateManager.appendState('pause')
                 case 'back':
                     self.gameStateManager.prevState()
+                    if self.gameStateManager.get_state() == 'menu':
+                        self.states['menu'] = Menu(globalStuff.display)
                 case _:  # level
                     sounds.play('stop')
                     self.gameStateManager.appendState(result)
@@ -132,9 +136,9 @@ class Game:
                         self.states[result] = Level6(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
                     elif result == 'level7':
                         self.states[result] = Level7(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
-
                     else:
-                        self.gameStateManager.appendState('menu')
+                        self.states['menu'] = Menu(globalStuff.display)
+                        self.gameStateManager.set_state('menu')
 
             globalStuff.updateTime()
 

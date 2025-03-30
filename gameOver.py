@@ -1,8 +1,8 @@
 # imports
-import time
+# import time
 import pygame
 
-from sounds import sounds
+# from sounds import sounds
 from button import Button
 
 
@@ -19,7 +19,7 @@ class GameOver:
         self.restartButton = Button(display, 300, 400, 'assets/buttonBackgroundWhite.png', 'Заново')
         self.menuButton = Button(display, 900, 400, 'assets/buttonBackgroundWhite.png', 'Меню')
         self.label = Button(display, 600, 100, 'assets/backgroundEmpty.png', 'Игра окончена :(', 80, 'red')
-        self.giveUpButton = Button(display, 600, 600, 'assets/buttonBackgroundWhite.png', 'Я сдаюсь(')
+        # self.giveUpButton = Button(display, 600, 600, 'assets/buttonBackgroundWhite.png', 'Я сдаюсь(')
 
     # doing stuff
     def run(self):
@@ -32,7 +32,7 @@ class GameOver:
         # drawing buttons
         self.restartButton.draw()
         self.menuButton.draw()
-        self.giveUpButton.draw()
+        # self.giveUpButton.draw()
         self.label.draw()
 
         # checking whether any buttons are pressed and changing game state if needed
@@ -41,6 +41,6 @@ class GameOver:
             return self.gameStateManager.get_state()
         elif self.menuButton.pressed:
             return 'menu'
-        elif self.giveUpButton.pressed:
-            sounds.play('giveUp')
-            time.sleep(0.5)
+        # elif self.giveUpButton.pressed:
+        #     sounds.play('giveUp')
+        #     time.sleep(0.5)

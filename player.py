@@ -52,7 +52,7 @@ class Player:
             self.invincible = True
             self.invincibilityCount -= 1
             self.invincibilityLeft = self.invincibilityTime
-            print("Invincible")
+            # print("Invincible")
 
         # changing sprite
         if self.moving:
