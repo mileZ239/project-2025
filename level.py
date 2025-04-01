@@ -206,7 +206,6 @@ class Level:
         self.gameStateManager.appendState('pause')
 
     def gameOver(self):
-        globalStuff.FPS = 60
         self.stats.updateDeaths(1)
         sounds.play('gameOver')
         self.gameStateManager.appendState('gameOver')
@@ -274,7 +273,6 @@ class Level:
         self.player.run()
 
         if collisionResult is not None:
-            globalStuff.FPS = 60
             with open('assets/stats/levels/' + self.difficultyName + '/' + self.name[-1] + '.txt', 'r') as levelStats:
                 data = levelStats.readlines()
                 currentMinTime = int(data[0])

@@ -26,7 +26,7 @@ class Records:
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Статистика', 80)
         self.avgDeathsLabel = Button(display, 600, 300, 'assets/buttonBackgroundBlack.png', 'В среднем смертей на уровень: ' + str(self.avgDeaths))
         self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime) + ' с')
-        self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей (анлак): ' + str(self.deaths))
+        self.allDeathsLabel = Button(display, 600, 500, 'assets/buttonBackgroundBlack.png', 'Всего смертей: ' + str(self.deaths))
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
         self.resetButton = Button(display, 600, 700, 'assets/buttonBackgroundWhite.png', 'Сбросить статистику')
         self.rightButton = Button(display, 1140, 700, 'assets/rightArrow.png')

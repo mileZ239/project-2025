@@ -115,6 +115,7 @@ class Game:
                     if self.gameStateManager.get_state() == 'menu':
                         self.states['menu'] = Menu(globalStuff.display)
                 case _:  # level
+                    globalStuff.FPS = 60
                     sounds.play('stop')
                     self.gameStateManager.appendState(result)
                     time.sleep(0.07)
