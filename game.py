@@ -28,16 +28,14 @@ from level7 import Level7
 class Game:
 
     def __init__(self):
-        # initializing pygame
         pygame.init()
 
-        # creating a clock for managing FPS
+        # для регулирования FPS
         self.clock = pygame.time.Clock()
 
-        # creating an instance of GameStateManager class
         self.gameStateManager = GameStateManager('menu')
 
-        # creating instances of Menu and Level classes
+        # экземпляры классов меню
         self.menu = Menu(globalStuff.display)
         self.gameOver = GameOver(globalStuff.display, self.gameStateManager)
         self.settings = Settings(globalStuff.display)
@@ -47,7 +45,7 @@ class Game:
         self.chooseLevel = ChooseLevel(globalStuff.display)
         self.stats = Stats()
 
-        # levels
+        # уровни
         self.level0 = Level0(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
         self.level1 = Level1(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
         self.level2 = Level2(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
@@ -57,7 +55,7 @@ class Game:
         self.level6 = Level6(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
         self.level7 = Level7(globalStuff.display, self.gameStateManager, pygame.image.load('assets/background.png'), self.stats)
 
-        # creating a dictionary for our game states
+        # словарь с классами
         self.states = {'menu': self.menu,
                        'gameOver': self.gameOver,
                        'settings': self.settings,
@@ -75,20 +73,19 @@ class Game:
                        'level7': self.level7,
                        }
 
-    # main function
     def run(self):
         pygame.mixer.init()
-        # main loop
         while True:
-            # looking for events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
-            # running stuff at current state
+            # делаем всё в текущем состоянии
             currentState = self.states[self.gameStateManager.get_state()]
             result = currentState.run()
+
+            # переход в другое состояние
             match result:
                 case None:
                     pass
@@ -114,11 +111,14 @@ class Game:
                     self.gameStateManager.prevState()
                     if self.gameStateManager.get_state() == 'menu':
                         self.states['menu'] = Menu(globalStuff.display)
-                case _:  # level
+                case _:  # уровень
+                    # возвращение к исходным данным
                     globalStuff.FPS = 60
                     sounds.play('stop')
+
                     self.gameStateManager.appendState(result)
                     time.sleep(0.07)
+
                     if result != 'level0':
                         self.stats.updatePasses(1)
                     if result == 'level0':
@@ -141,8 +141,7 @@ class Game:
                         self.states['menu'] = Menu(globalStuff.display)
                         self.gameStateManager.set_state('menu')
 
+            # глобальное обновление
             globalStuff.updateTime()
-
-            # updating display
             pygame.display.update()
             self.clock.tick(globalStuff.FPS)

@@ -1,4 +1,3 @@
-# imports
 # import time
 import pygame
 
@@ -6,7 +5,6 @@ import pygame
 from button import Button
 
 
-# class for GameOver state
 class GameOver:
     def __init__(self, display, gameStateManager):
         self.display = display
@@ -15,7 +13,7 @@ class GameOver:
         self.background = pygame.image.load('assets/background3.png')
         self.background.set_alpha(8)
 
-        # creating buttons
+        # кнопки
         self.restartButton = Button(display, 300, 400, 'assets/buttonBackgroundWhite.png', 'Заново')
         self.menuButton = Button(display, 900, 400, 'assets/buttonBackgroundWhite.png', 'Меню')
         self.label = Button(display, 600, 100, 'assets/backgroundEmpty.png', 'Игра окончена :(', 80, 'red')
@@ -29,13 +27,12 @@ class GameOver:
         # self.display.fill('black')
         self.display.blit(self.background, (0, 0))
 
-        # drawing buttons
         self.restartButton.draw()
         self.menuButton.draw()
         # self.giveUpButton.draw()
         self.label.draw()
 
-        # checking whether any buttons are pressed and changing game state if needed
+        # нажата ли кнопка
         if self.restartButton.pressed or (pygame.key.get_pressed()[pygame.K_SPACE]):
             self.gameStateManager.prevState()
             return self.gameStateManager.get_state()

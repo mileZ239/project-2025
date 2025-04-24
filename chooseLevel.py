@@ -12,6 +12,8 @@ class ChooseLevel:
 
         self.levelsStars = []
         self.levelsCount = 8
+
+        # читаем статистику
         for i in range(self.levelsCount):
             with open(f'assets/stats/levels/explorer/{i}.txt') as levelStats:
                 starsExplorer = int(levelStats.readlines()[1])
@@ -26,6 +28,8 @@ class ChooseLevel:
 
         self.difficulty = int(float(open('assets/settings/settings.txt', 'r').readlines()[0]))
         self.buttons = []
+
+        # спрайты кнопок
         for i in range(self.levelsCount // 2):
             stars = self.levelsStars[i][self.difficulty]
             if stars == -1:

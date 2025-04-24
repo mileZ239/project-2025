@@ -7,6 +7,7 @@ class Settings:
     def __init__(self, display):
         self.display = display
 
+        # кнопки
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Настройки и управление', 80)
         self.difficultyLabel = Button(display, 350, 300, 'assets/buttonBackgroundBlack.png', 'Сложность', 60)
         self.returnButton = Button(display, 1140, 60, 'assets/backArrow.png')
@@ -22,6 +23,7 @@ class Settings:
         self.difficultyButtons = [self.explorerDifficultyButton, self.easyDifficultyButton, self.hardDifficultyButton]
         self.changedDifficulty = 0
 
+        # управление
         self.controlsText = []
         self.controlsText.append(Button(display, 600, 500, 'assets/backgroundEmpty.png', 'WASD/стрелки - передвижение', 46))
         self.controlsText.append(Button(display, 600, 575, 'assets/backgroundEmpty.png', 'C - замедление времени (2 раза за уровень)', 46))
@@ -41,7 +43,7 @@ class Settings:
         for text in self.controlsText:
             text.draw()
 
-
+        # смена сложности
         self.changedDifficulty -= 1
         for button in self.difficultyButtons:
             if button.pressed:

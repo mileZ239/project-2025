@@ -3,6 +3,7 @@ import pygame
 
 class GlobalStuff:
     def __init__(self):
+        # константы
         self.SCREEN_WIDTH = 1200
         self.SCREEN_HEIGHT = 800
         self.FPS = 60

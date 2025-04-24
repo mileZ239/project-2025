@@ -5,11 +5,14 @@ class Projectile:
     def __init__(self, display, x, y, direction):
         self.display = display
 
+        # текущие координаты
         self.x = x
         self.y = y
+
         self.speedX = 0
         self.speedY = 0
 
+        # спрайт
         self.facing = direction
         self.sprite = pygame.image.load('assets/projectile' + direction + '.png')
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))

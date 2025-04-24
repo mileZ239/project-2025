@@ -6,6 +6,7 @@ class Records:
     def __init__(self, display):
         self.display = display
 
+        # данные из статистики
         self.passesData = open('assets/stats/passes.txt', 'r').readlines()
         self.deathsData = open('assets/stats/deaths.txt', 'r').readlines()
         self.timeData = open('assets/stats/time.txt', 'r').readlines()
@@ -23,6 +24,7 @@ class Records:
 
         self.levelsCount = 8
 
+        # кнопки
         self.label = Button(display, 600, 100, 'assets/buttonBackgroundBlack.png', 'Статистика', 80)
         self.avgDeathsLabel = Button(display, 600, 300, 'assets/buttonBackgroundBlack.png', 'В среднем смертей на уровень: ' + str(self.avgDeaths))
         self.avgTimeLabel = Button(display, 600, 400, 'assets/buttonBackgroundBlack.png', 'Среднее время прохождения уровня: ' + str(self.avgTime) + ' с')
@@ -40,6 +42,7 @@ class Records:
         self.resetButton.draw()
         self.rightButton.draw()
 
+    # сброс статистики
     def reset(self):
         with open('assets/stats/deaths.txt', 'w') as deaths:
             deaths.writelines('0')

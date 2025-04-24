@@ -11,6 +11,7 @@ class ThornTrap:
         self.cooldown = 0
         self.activated = False
 
+        # спрайты
         self.facing = direction
         self.sprite = pygame.image.load('assets/thornsTrapOff.png')
         self.spriteInactivated = pygame.image.load('assets/thornsTrapOff.png')
@@ -30,6 +31,7 @@ class ThornTrap:
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
 
     def run(self):
+        # активирование / деактивирование
         if self.cooldown > 0:
             self.cooldown -= 1
             if self.cooldown == 0 and self.activated:

@@ -1,4 +1,3 @@
-# imports
 import pygame
 
 from player import Player
@@ -8,20 +7,18 @@ from settings import Settings
 from globalStuff import globalStuff
 
 
-# level class
 class Level:
     def __init__(self, display, gameStateManager, background, stats):
-        # init
         self.display = display
         self.gameStateManager = gameStateManager
         self.background = background
 
-        # supporting classes
+        # дополнительные классы
         self.stats = stats
         self.player = Player(display)
         self.settings = Settings(display)
 
-        # difficulty correction
+        # поправка на сложность
         match self.settings.difficulty:
             case 0:
                 self.difficulty = 0.001
@@ -37,18 +34,20 @@ class Level:
         self.lastedTime = 0
         self.collectedStars = 0
 
+        # надписи на уровне
         self.paused = False
         self.timerLabel = Button(display, 1140, 760, 'assets/backgroundEmpty.png', str(self.leftTime), 52, pygame.Color(0, 154, 255))
         self.invincibilityLabel = Button(display, 1100, 20, 'assets/backgroundEmpty.png', 'Неуязвимость', 35, pygame.Color(220, 220, 220))
         self.slowLabel = Button(display, 1100, 50, 'assets/backgroundEmpty.png', 'Замедление', 35, pygame.Color(52, 204, 255))
         self.name = 'level'
 
-        # slowing time ability
+        # способность замедления времени
         self.slow = False
         self.slowCount = 2
         self.slowTime = 60 / 2 * 2
         self.slowLeft = 0
 
+        # нужные массивы
         self.walls = []
         self.bats = []
         self.thorns = []
@@ -59,6 +58,7 @@ class Level:
         self.stars = []
         self.elements = []
 
+    # парсинг элементов
     def parseElements(self):
         for element in self.elements:
             if element.name == 'wall' or element.name == 'semiWall':
@@ -242,12 +242,14 @@ class Level:
     def runEverything(self):
         self.stats.updateTime(1)
 
+        # проверка на оставшееся время
         self.leftTime -= 1
         if self.leftTime <= 0:
             self.gameOver()
 
         self.lastedTime += 1
 
+        # способности
         if self.slow:
             self.slowLeft -= 1
         if self.slow and self.slowLeft == 0:
@@ -272,6 +274,7 @@ class Level:
 
         self.player.run()
 
+        # столкнулись с порталом
         if collisionResult is not None:
             with open('assets/stats/levels/' + self.difficultyName + '/' + self.name[-1] + '.txt', 'r') as levelStats:
                 data = levelStats.readlines()

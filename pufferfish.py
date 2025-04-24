@@ -9,6 +9,7 @@ class Pufferfish:
         self.x = x
         self.y = y
 
+        # спрайт
         self.sprite = pygame.image.load('assets/pufferfishDeflated.png')
         self.spriteActive = pygame.image.load('assets/pufferfish.png')
         self.spriteDeflated = pygame.image.load('assets/pufferfishDeflated.png')
@@ -18,11 +19,13 @@ class Pufferfish:
         self.cooldown = 120
         self.deflated = True
 
-        # difficulty correction
+        # поправка на сложность
         self.multiplier = 1
 
     def run(self):
         self.cooldown -= 1
+
+        # сдувание / раздувание
         if self.cooldown <= 0:
             if self.deflated:
                 self.deflated = False

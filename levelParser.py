@@ -1,4 +1,3 @@
-# imports
 from wall import Wall
 from semiWall import SemiWall
 from bat import Bat
@@ -10,7 +9,7 @@ from pufferfish import Pufferfish
 from star import Star
 
 
-# class for parsing data from .txt file
+# класс для парсинга .txt файлов в объекты уровней
 class LevelParser:
     def __init__(self, display, path):
         self.display = display
@@ -19,12 +18,12 @@ class LevelParser:
         self.lines = self.file.readlines()
 
     def parse(self):
-        # result array with walls and entities
+        # итоговый массив с объектами
         result = []
 
         for i in range(27):
             for j in range(40):
-                # checking for wall / entity
+                # проверка на сущность / стену
 
                 # misc
                 # . - free space

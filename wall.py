@@ -1,8 +1,6 @@
-# imports
 import pygame
 
 
-# wall class
 class Wall:
     def __init__(self, display, x, y):
         self.display = display
@@ -12,6 +10,5 @@ class Wall:
         self.rect = self.sprite.get_rect(center=(self.x + 15, self.y + 15))
         self.name = 'wall'
 
-    # doing stuff
     def run(self):
         self.display.blit(self.sprite, self.rect)

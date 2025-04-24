@@ -21,9 +21,13 @@ class BestLevelTime:
 
         self.levelsCount = 8
 
+        # статистика по уровням
         self.levelsTime = []
         self.levelsLabels = []
+
+        # читаем статистику
         for levelNumber in range(self.levelsCount):
+            # читаем данные из файлов
             with open('assets/stats/levels/explorer/' + str(levelNumber) + '.txt', 'r') as levelStats:
                 timeExplorer = round(float(levelStats.readlines()[0]) / 60, 2)
                 levelStats.close()
@@ -39,6 +43,7 @@ class BestLevelTime:
 
             textX, textY = 300 + (levelNumber // 4) * 500, (levelNumber % 4) * 80 + 300
 
+            # надписи
             textExplorer = 'Уровень ' + str(levelNumber + 1) + ':          ' + str(timeExplorer) + ' с'
             if timeExplorer >= 10000:
                 textExplorer = 'Уровень ' + str(levelNumber + 1) + ':          ' + 'не пройден :('
@@ -83,6 +88,7 @@ class BestLevelTime:
         self.display.fill('black')
         self.drawStuff()
 
+        # смена сложности
         self.changedDifficulty -= 1
         for button in self.difficultyButtons:
             if button.pressed:

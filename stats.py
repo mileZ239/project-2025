@@ -1,5 +1,6 @@
 class Stats:
     def __init__(self):
+        # данные из файлов
         self.passesData = open('assets/stats/passes.txt', 'r').readlines()
         self.deathsData = open('assets/stats/deaths.txt', 'r').readlines()
         self.timeData = open('assets/stats/time.txt', 'r').readlines()
